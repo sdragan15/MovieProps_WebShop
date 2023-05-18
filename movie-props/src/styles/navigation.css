@@ -1,0 +1,21 @@
+.navigation-wrapper {
+  padding: 0.1rem;
+  padding-top: 0.5rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.item-wrapper {
+  width: 10rem;
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem;
+}
+
+.item-wrapper:hover {
+  font-size: 120%;
+  transition: font-size 0.1s;
+}
