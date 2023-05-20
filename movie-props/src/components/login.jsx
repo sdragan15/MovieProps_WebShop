@@ -1,5 +1,6 @@
 import styles from "../styles/login.css";
 import { Link, useNavigate } from "react-router-dom";
+import MyInput from "./input-comp/myInput";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,26 +16,8 @@ function Login() {
         <h1 className="header">Log in</h1>
         <div className="login-form-wrapper">
           <form method="post" onSubmit={handleSubmit}>
-            <table>
-              <tbody>
-                <tr>
-                  <th>
-                    <label>e-mail:</label>
-                  </th>
-                  <td>
-                    <input type="text" name="email"></input>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <label>password:</label>
-                  </th>
-                  <td>
-                    <input type="password" name="password"></input>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <MyInput text={"E-mail"} type={"text"} name={"e-mail"} />
+            <MyInput text={"Password"} type={"password"} name={"password"} />
             <div className="submit-wrapper">
               <button className="submit-btn">Log in</button>
             </div>
@@ -44,6 +27,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <img className="login-photo" src={require("../images/lotrRing.png")} />
     </>
   );
 }
