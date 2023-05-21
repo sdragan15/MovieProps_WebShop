@@ -59,3 +59,37 @@
   z-index: -1;
   width: 100%;
 }
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4rem;
+}
+
+.register-form-wrapper {
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  /* background-color: rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+  border-radius: 1.5rem; */
+}
+
+.register-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.login-link-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: black;
+}
+
+.login-link-wrapper a {
+  color: black;
+}

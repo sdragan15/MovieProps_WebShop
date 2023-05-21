@@ -15,9 +15,10 @@ function Navigation() {
           <Link to={""}>Movie Props</Link>
         </div>
         <div className="navigation-right">
-          <NavigationItem item={"New Orders"} />
+          <NavigationItem item={"Shop"} path={"main-shop"} />
+          {/* <NavigationItem item={"New Orders"} />
           <NavigationItem item={"My Orders"} />
-          <NavigationItem item={"All Orders"} />
+          <NavigationItem item={"All Orders"} /> */}
         </div>
         {/* <NavigationItem item={"Add Article"} path={"add-article"} />
         <NavigationItem item={"New Order"} />

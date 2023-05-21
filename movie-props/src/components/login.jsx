@@ -15,7 +15,7 @@ function Login() {
       <div className="login-container">
         <h1 className="header">Log in</h1>
         <div className="login-form-wrapper">
-          <form method="post" onSubmit={handleSubmit}>
+          <form method="post" className="login-form" onSubmit={handleSubmit}>
             <MyInput text={"E-mail"} type={"text"} name={"e-mail"} />
             <MyInput text={"Password"} type={"password"} name={"password"} />
             <div className="submit-wrapper">

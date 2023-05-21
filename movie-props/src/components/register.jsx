@@ -1,82 +1,48 @@
 import styles from "../styles/login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import MyInput from "./input-comp/myInput";
 
 function Register() {
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate("/dashboard");
+  };
+
   return (
     <>
-      <div className="login-container">
+      <div className="register-container">
         <h1 className="header">Register</h1>
-        <div className="login-form-wrapper">
-          <form method="post">
-            <table>
-              <tbody>
-                <tr>
-                  <th>
-                    <label>Username:</label>
-                  </th>
-                  <td>
-                    <input type="text" name="username"></input>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <label>Email:</label>
-                  </th>
-                  <td>
-                    <input type="text" name="email"></input>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <label>Password:</label>
-                  </th>
-                  <td>
-                    <input type="password" name="password"></input>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <label>Name:</label>
-                  </th>
-                  <td>
-                    <input type="text" name="name"></input>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <label>Last name:</label>
-                  </th>
-                  <td>
-                    <input type="text" name="lastName"></input>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <label>Date of birth:</label>
-                  </th>
-                  <td>
-                    <input type="date" name="birth"></input>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <label>Address:</label>
-                  </th>
-                  <td>
-                    <input type="text" name="address"></input>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div className="register-form-wrapper">
+          <form method="post" onSubmit={handleSubmit}>
+            <MyInput text={"E-mail"} type={"text"} name={"e-mail"} />
+            <div className="register-inputs">
+              <div>
+                <MyInput text={"Username"} type={"text"} name={"username"} />
+                <MyInput text={"Name"} type={"text"} name={"name"} />
+                <MyInput text={"Address"} type={"text"} name={"address"} />
+              </div>
+              <div>
+                <MyInput
+                  text={"Password"}
+                  type={"password"}
+                  name={"password"}
+                />
+                <MyInput text={"Last name"} type={"text"} name={"lastName"} />
+                <MyInput text={"Date"} type={"date"} name={"date"} />
+              </div>
+            </div>
             <div className="submit-wrapper">
               <button className="submit-btn">Register</button>
             </div>
           </form>
-          <div className="register-wrapper">
-            <Link to="/">Log in</Link>
+          <div className="login-link-wrapper">
+            <Link to="dashboard">Log in</Link>
           </div>
         </div>
       </div>
+      <img className="login-photo" src={require("../images/lotrRing.png")} />
     </>
   );
 }

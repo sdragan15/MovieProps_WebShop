@@ -13,6 +13,7 @@ body {
   /* background-image: url("./images/background.jpg"); */
   background-size: cover;
   position: fixed;
+  overflow-y: scroll;
 }
 
 @font-face {
