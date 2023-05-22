@@ -6,12 +6,12 @@
 }
 
 .shop-search-wrapper {
-  padding: 0 0 1rem 5rem;
+  padding: 0 0 1rem 9rem;
 }
 
 .shop-search-wrapper input {
   width: 15rem;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.6);
   border-radius: 1rem;
   font-size: 1rem;
   padding: 0.3rem 1rem;
