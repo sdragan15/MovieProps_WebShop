@@ -24,7 +24,12 @@ function AddItemModal({ setShow, name, description, price, image }) {
             </div>
             <div className="modal-info-buttons">
               <div className="button add-to-cart-btn">
-                <span>PURCHASE</span>
+                <span>ADD TO CART</span>
+              </div>
+              <div className="quantity">
+                <span className="quantity-simbol">-</span>
+                <span className="quantity-no">4</span>
+                <span className="quantity-simbol">+</span>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
-function Item({ name, description, price, image }) {
+function Item({ name, description, price, image, onClick }) {
   return (
     <>
-      <div className="shop-item">
+      <div className="shop-item" onClick={onClick}>
         <div className="item-photo-wrapper">
           <div
             className="item-photo"

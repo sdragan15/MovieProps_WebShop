@@ -48,7 +48,6 @@
 .modal-info-header {
   font-size: 1.4rem;
   font-weight: 600;
-  text-decoration: underline;
 }
 
 .modal-info-description {
@@ -75,4 +74,30 @@
 .add-to-cart-btn:hover {
   color: white;
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+.quantity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.quantity-simbol {
+  border: 0px;
+  border-radius: 2rem;
+  background-color: rgba(128, 128, 128, 0.5);
+  padding: 0.5rem;
+  width: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.quantity-simbol:hover {
+  background-color: rgba(128, 128, 128, 1);
+}
+
+.quantity-no {
+  margin: 0.7rem;
 }
