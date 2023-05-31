@@ -51,10 +51,11 @@
 }
 
 .login-photo {
+  overflow: hidden;
   width: 10rem;
   position: absolute;
   width: 10rem;
-  top: 40%;
+  bottom: 0rem;
   left: -10rem;
   z-index: -1;
   width: 100%;

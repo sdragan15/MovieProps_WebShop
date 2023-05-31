@@ -42,6 +42,9 @@
   height: 2rem;
   text-align: center;
   line-height: 2rem;
+  position: absolute;
+  margin-left: 50%;
+  transform: translate(-60%);
 }
 
 .navigation-header a {
