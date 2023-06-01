@@ -1,4 +1,4 @@
-﻿using MovieProps.BLL.Constants;
+﻿using MovieProps.Shared.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;

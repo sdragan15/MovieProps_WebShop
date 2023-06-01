@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieProps.BLL.Constants
+namespace MovieProps.Shared.Constants
 {
     public enum RoleTypes
     {

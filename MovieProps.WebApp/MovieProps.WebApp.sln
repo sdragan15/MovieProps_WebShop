@@ -5,11 +5,15 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieProps.WebApp", "MovieProps.WebApp\MovieProps.WebApp.csproj", "{66810D18-1F7D-4FDC-875C-7A8C6FFE0ACE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieProps.DAL", "MovieProps.DAL\MovieProps.DAL.csproj", "{4FEE83FA-1D6D-46FB-89AF-1AFFCE34E052}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieProps.DAL", "MovieProps.DAL\MovieProps.DAL.csproj", "{4FEE83FA-1D6D-46FB-89AF-1AFFCE34E052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieProps.DAL.Contract", "MovieProps.DAL.Contract\MovieProps.DAL.Contract.csproj", "{27ED91C2-ABF3-4A1C-8C82-B263C803C283}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieProps.DAL.Contract", "MovieProps.DAL.Contract\MovieProps.DAL.Contract.csproj", "{27ED91C2-ABF3-4A1C-8C82-B263C803C283}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieProps.BLL", "MovieProps.BLL\MovieProps.BLL.csproj", "{A12E4109-C702-4EF2-903A-B50A35792A42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieProps.BLL", "MovieProps.BLL\MovieProps.BLL.csproj", "{A12E4109-C702-4EF2-903A-B50A35792A42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieProps.BLL.Contract", "MovieProps.BLL.Contract\MovieProps.BLL.Contract.csproj", "{DF7E531D-E398-4A4B-825A-BE2FE610371D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieProps.Shared", "MovieProps.Shared\MovieProps.Shared.csproj", "{AE3529F1-2195-434B-95C6-74CE576132D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{A12E4109-C702-4EF2-903A-B50A35792A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A12E4109-C702-4EF2-903A-B50A35792A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A12E4109-C702-4EF2-903A-B50A35792A42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF7E531D-E398-4A4B-825A-BE2FE610371D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7E531D-E398-4A4B-825A-BE2FE610371D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7E531D-E398-4A4B-825A-BE2FE610371D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7E531D-E398-4A4B-825A-BE2FE610371D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE3529F1-2195-434B-95C6-74CE576132D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE3529F1-2195-434B-95C6-74CE576132D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE3529F1-2195-434B-95C6-74CE576132D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE3529F1-2195-434B-95C6-74CE576132D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
