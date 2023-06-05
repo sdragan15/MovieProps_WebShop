@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieProps.DAL.Context;
 
@@ -11,9 +12,11 @@ using MovieProps.DAL.Context;
 namespace MovieProps.DAL.Migrations
 {
     [DbContext(typeof(MoviePropsContext))]
-    partial class MoviePropsContextModelSnapshot : ModelSnapshot
+    [Migration("20230605190645_Update_User")]
+    partial class Update_User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,32 +64,6 @@ namespace MovieProps.DAL.Migrations
                     b.ToTable("BuyerItems");
                 });
 
-            modelBuilder.Entity("MovieProps.DAL.Contract.Model.Image", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<byte[]>("Bytes")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastUpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Image");
-                });
-
             modelBuilder.Entity("MovieProps.DAL.Contract.Model.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -98,8 +75,8 @@ namespace MovieProps.DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -110,16 +87,7 @@ namespace MovieProps.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
-                        .HasPrecision(12, 3)
-                        .HasColumnType("decimal(12,3)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
 
                     b.ToTable("Items");
                 });
@@ -253,15 +221,6 @@ namespace MovieProps.DAL.Migrations
                     b.Navigation("Item");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MovieProps.DAL.Contract.Model.Item", b =>
-                {
-                    b.HasOne("MovieProps.DAL.Contract.Model.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
-
-                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("MovieProps.DAL.Contract.Model.SellerItem", b =>

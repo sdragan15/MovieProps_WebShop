@@ -39,6 +39,8 @@ namespace MovieProps.DAL.Context
             buyerItem.HasOne(x => x.User).WithOne().HasForeignKey<BuyerItem>(y => y.UserId);
             buyerItem.HasOne(x => x.Item).WithOne().HasForeignKey<BuyerItem>(y => y.ItemId);
 
+            var item = modelBuilder.Entity<Item>();
+            item.Property(x => x.Price).HasPrecision(12, 3);
 
         }
 

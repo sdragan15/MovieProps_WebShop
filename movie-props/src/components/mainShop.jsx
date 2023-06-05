@@ -1,31 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/mainShop.css";
 import Item from "./items-comp/item";
 import AddItemModal from "./modals-comp/addItemModal";
 import { ItemModel } from "../models/item.model";
+import ItemService from "../services/item.service";
 
-function AddItems(items) {
-  for (let i = 1; i <= 10; i++) {
-    let temp = new ItemModel();
-    temp.name = "Name_" + i;
-    temp.description = "Ovo je nekakav opis " + i + ".";
-    temp.price = 100 * i + 8 * i;
-    temp.quantity = i;
-    items.push(temp);
-  }
-}
+let itemService = ItemService;
 
 function MainShop() {
-  let items = [];
+  itemService = new ItemService();
 
   const [clickedItem, setClickedItem] = useState(null);
   const [show, setShow] = useState(false);
+  const [items, setItems] = useState([]);
+  const [buyNo, setBuyNo] = useState(0);
 
-  AddItems(items);
+  useEffect(() => {
+    itemService
+      .getAll()
+      .then((res) => {
+        if (res.status == 200) {
+          console.log(res.data);
+          setItems(res.data);
+        } else {
+          console.log(res.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const openAddItemModal = (event, item) => {
+    setBuyNo(0);
     setClickedItem(item);
     setShow(true);
+  };
+
+  const addToCart = (no) => {
+    if (no <= 0) {
+      return;
+    }
+    clickedItem.buyNo = no;
+    if (localStorage["items"] == "") {
+      let myItems = [];
+      myItems.push(clickedItem);
+      localStorage["items"] = JSON.stringify(myItems);
+    } else {
+      let myItems = JSON.parse(localStorage["items"]);
+      myItems.push(clickedItem);
+      localStorage["items"] = JSON.stringify(myItems);
+    }
   };
 
   return (
@@ -70,6 +95,10 @@ function MainShop() {
             "https://m.media-amazon.com/images/I/71Cxh1kebjL._AC_UY1000_.jpg"
           }
           price={clickedItem.price}
+          quantity={clickedItem.quantity}
+          buyNo={buyNo}
+          setByNo={setBuyNo}
+          addToCart={addToCart}
         />
       )}
     </>

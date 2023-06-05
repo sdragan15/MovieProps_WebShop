@@ -23,8 +23,20 @@ namespace MovieProps.WebApp
             Configuration = configuration;
         }
 
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                });
+            });
+
+            services.AddMvc();
             services.AddControllers();
             services.AddAuthentication(options =>
             {
@@ -45,7 +57,7 @@ namespace MovieProps.WebApp
                 };
             });
             services.AddAuthorization();
-            
+
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
@@ -61,12 +73,14 @@ namespace MovieProps.WebApp
             services.AddTransient<IItemRepository, ItemRepository>();
 
             services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -77,10 +91,6 @@ namespace MovieProps.WebApp
                 app.UseHsts();
             }
 
-            app.UseCors();
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -88,10 +98,17 @@ namespace MovieProps.WebApp
             });
 
             app.UseRouting();
+            app.UseStaticFiles();
+
+            app.UseHttpsRedirection();
+
+            app.UseCors("CorsPolicy");
+
 
             app.UseAuthentication();
             app.UseAuthorization();
-          
+
+
 
             app.UseEndpoints(endpoints =>
             {

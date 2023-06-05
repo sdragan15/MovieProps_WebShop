@@ -20,6 +20,14 @@ namespace MovieProps.BLL.Services
             _uow = unitOfWork;
         }
 
+        public async Task<ResponsePackage<User>> GetByEmail(string email)
+        {
+            return new ResponsePackage<User>()
+            {
+                Data = await _uow.GetUserRepository().GetByEmail(email)
+            };  
+        }
+
         public async Task<ResponsePackage<string>> RegisterUser(UserDataIn dataIn)
         {
             User user = new User();
@@ -36,6 +44,8 @@ namespace MovieProps.BLL.Services
             }
 
             await _uow.GetUserRepository().Add(user);
+            await _uow.CompleteAsync();
+
             return new ResponsePackage<string>();
         }
     }

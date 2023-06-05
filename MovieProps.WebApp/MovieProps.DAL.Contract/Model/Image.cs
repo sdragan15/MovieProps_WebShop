@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace MovieProps.DAL.Contract.Model
 {
-    public class Item : Entity
+    public class Image : Entity
     {
         public string? Name { get; set; }
-        public string? Description { get; set; }
-        public Image? Image { get; set; }
-        public decimal? Price { get; set; }
-        public int Quantity { get; set; }
+        public byte[] Bytes { get; set; } 
     }
 }

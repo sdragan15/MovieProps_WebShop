@@ -1,11 +1,42 @@
+import { ItemModel } from "../../models/item.model";
 import styles from "../../styles/modals.css";
-function AddItemModal({ setShow, name, description, price, image }) {
+
+function AddItemModal({
+  setShow,
+  name,
+  description,
+  price,
+  image,
+  quantity,
+  buyNo,
+  setByNo,
+  addToCart,
+}) {
   const setChanger = (event) => {
     setShow(false);
   };
 
   const stopPropagation = (event) => {
     event.stopPropagation();
+  };
+
+  const Add = () => {
+    if (buyNo < quantity) {
+      buyNo++;
+      setByNo(buyNo);
+    }
+  };
+
+  const Subtract = () => {
+    if (buyNo > 0) {
+      buyNo--;
+      setByNo(buyNo);
+    }
+  };
+
+  const AddToCart = () => {
+    addToCart(buyNo);
+    setChanger();
   };
 
   return (
@@ -23,13 +54,17 @@ function AddItemModal({ setShow, name, description, price, image }) {
               <span className="modal-info-price">${price}</span>
             </div>
             <div className="modal-info-buttons">
-              <div className="button add-to-cart-btn">
+              <div onClick={AddToCart} className="button add-to-cart-btn">
                 <span>ADD TO CART</span>
               </div>
               <div className="quantity">
-                <span className="quantity-simbol">-</span>
-                <span className="quantity-no">4</span>
-                <span className="quantity-simbol">+</span>
+                <span className="quantity-simbol" onClick={Subtract}>
+                  -
+                </span>
+                <span className="quantity-no">{buyNo}</span>
+                <span className="quantity-simbol" onClick={Add}>
+                  +
+                </span>
               </div>
             </div>
           </div>

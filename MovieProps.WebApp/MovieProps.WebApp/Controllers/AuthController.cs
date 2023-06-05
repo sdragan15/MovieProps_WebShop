@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MovieProps.BLL.Contract.DTOs.User;
+using MovieProps.BLL.Contract.Services;
 using MovieProps.DAL.Contract.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -15,17 +16,27 @@ namespace MovieProps.WebApp.Controllers
     public class AuthController : ControllerBase
     {
         readonly IConfiguration _configuration;
-        public AuthController(IConfiguration configuration)
+        private readonly IUserService _userService;
+
+
+        public AuthController(IConfiguration configuration, IUserService userService)
         {
             _configuration = configuration;
+            _userService = userService;
         }
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody]LoginDataIn user)
+        public async Task<IActionResult> Login([FromBody]LoginDataIn dataIn)
         {
+            var user = (await _userService.GetByEmail(dataIn.Email)).Data;
 
-            if(user.Email == "myEmail" && user.Password == "a")
+            if(user == null)
+            {
+                return Unauthorized();
+            }
+
+            if(user.Email.Equals(dataIn.Email) && user.Password.Equals(user.Password))
             {
                 var issuer = _configuration["Jwt:Issuer"];
                 var audience = _configuration["Jwt:Audience"];
