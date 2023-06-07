@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieProps.DAL.Contract.Model
+namespace MovieProps.BLL.Contract.DTOs.Item
 {
-    public class Item : Entity
+    public class ItemDataIn
     {
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public string? Image { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }

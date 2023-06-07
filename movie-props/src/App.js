@@ -1,5 +1,5 @@
 import Login from "./components/login";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Register from "./components/register";
 import Dashboard from "./components/dashboard";
 import Navigation from "./components/navigation-comp/navigation";
@@ -7,12 +7,21 @@ import AddArticle from "./components/article-comp/addArticle";
 import MainShop from "./components/mainShop";
 import MyCart from "./components/myCart-comp/myCart";
 import { useState } from "react";
+import AddProduct from "./components/addProduct-comp/addProduct";
+import LogOut from "./components/logout";
 
 function App() {
+  const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
 
   const onLogIn = (email) => {
-    setUserEmail(localStorage["email"]);
+    setUserEmail(email);
+  };
+
+  const onLogOut = () => {
+    localStorage.clear();
+    setUserEmail(null);
+    navigate("/");
   };
 
   return (
@@ -27,6 +36,8 @@ function App() {
           <Route path="add-article" element={<AddArticle />} />
           <Route path="main-shop" element={<MainShop />} />
           <Route path="my-cart" element={<MyCart />} />
+          <Route path="add-product" element={<AddProduct />} />
+          <Route path="logout" element={<LogOut onLogOut={onLogOut} />} />
         </Routes>
       </div>
     </>

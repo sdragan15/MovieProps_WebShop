@@ -4,6 +4,7 @@ import NavigationItem from "./navigationItem";
 import { useState } from "react";
 
 function Navigation({ userEmail }) {
+  console.log(userEmail)
   return (
     <>
       <div className="navigation-wrapper">
@@ -12,6 +13,7 @@ function Navigation({ userEmail }) {
           {!userEmail && <NavigationItem item={"Log in"} path={"login"} />}
           {!userEmail && <NavigationItem item={"Register"} path={"register"} />}
           {userEmail && <NavigationItem item={"My Cart"} path={"my-cart"} />}
+          {userEmail && <NavigationItem item={"Add Product"} path={"add-product"} />}
         </div>
         <div className="navigation-header">
           <Link to={""}>Movie Props</Link>

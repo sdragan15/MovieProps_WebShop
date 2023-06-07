@@ -94,3 +94,15 @@
 .login-link-wrapper a {
   color: black;
 }
+
+.register-img {
+  max-width: 15rem;
+  margin-top: 1rem;
+  max-height: 15rem;
+}
+
+.register-img-input {
+  margin-top: 1rem;
+  width: 15rem;
+  font-size: 1rem;
+}

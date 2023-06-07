@@ -1,13 +1,10 @@
 import styles from "../../styles/myCart.css";
 
-function CartItem({ name, description, price, buyNo }) {
+function CartItem({ name, description, price, buyNo, image }) {
   return (
     <>
       <div className="cart-item">
-        <img
-          className="cart-image"
-          src="https://m.media-amazon.com/images/I/71Cxh1kebjL._AC_UY1000_.jpg"
-        ></img>
+        <img className="cart-image" src={image}></img>
         <span className="cart-name item">{name}</span>
         <span className="cart-description">{description}</span>
         <span className="cart-price">${price}</span>

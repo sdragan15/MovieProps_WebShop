@@ -43,10 +43,7 @@ function AddItemModal({
     <>
       <div className="modal-wrapper" onClick={setChanger}>
         <div className="modal-container" onClick={stopPropagation}>
-          <div
-            className="modal-photo"
-            style={{ backgroundImage: `url(${image})` }}
-          ></div>
+          <img className="modal-photo" src={image}></img>
           <div className="modal-info-wrapper">
             <div className="modal-info-main">
               <span className="modal-info-header">{name}</span>

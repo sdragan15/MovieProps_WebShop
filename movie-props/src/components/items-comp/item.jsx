@@ -3,10 +3,9 @@ function Item({ name, description, price, image, onClick }) {
     <>
       <div className="shop-item" onClick={onClick}>
         <div className="item-photo-wrapper">
-          <div
-            className="item-photo"
-            style={{ backgroundImage: `url(${image})` }}
-          ></div>
+          <div>
+            <img className="item-photo" src={image}></img>
+          </div>
         </div>
         <span className="item-name">{name}</span>
         <span className="item-description">{description}</span>

@@ -1,4 +1,6 @@
-﻿using MovieProps.DAL.Contract.Model;
+﻿using MovieProps.BLL.Contract.DTOs.Item;
+using MovieProps.DAL.Contract.Model;
+using MovieProps.Shared.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,7 @@ namespace MovieProps.BLL.Contract.Services
 {
     public interface IItemService
     {
-        Task<List<Item>> GetAll();
+        Task<ResponsePackage<List<ItemDto>>> GetAll();
+        Task<ResponsePackage<string>> Add(ItemDataIn dataIn);
     }
 }

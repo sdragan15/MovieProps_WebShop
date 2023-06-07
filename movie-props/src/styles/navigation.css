@@ -17,6 +17,7 @@
   height: 2rem;
   text-align: center;
   line-height: 2rem;
+  cursor: pointer;
 }
 
 .item-wrapper:hover {

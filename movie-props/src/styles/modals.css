@@ -100,4 +100,6 @@
 
 .quantity-no {
   margin: 0.7rem;
+  width: 2rem;
+  text-align: center;
 }

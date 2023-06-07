@@ -23,6 +23,7 @@ function MyCart() {
               description={item.description}
               price={item.price}
               buyNo={item.buyNo}
+              image={item.image}
             />
           ))}
         </div>

@@ -11,6 +11,9 @@ using MovieProps.DAL.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AutoMapper;
+using MovieProps.BLL.Mappers;
+using Microsoft.Extensions.FileProviders;
 
 namespace MovieProps.WebApp
 {
@@ -70,10 +73,20 @@ namespace MovieProps.WebApp
                 options.UseSqlServer(Configuration["ConnectionStrings:MovieProps"]),
                 ServiceLifetime.Scoped);
 
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ItemProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddTransient<IItemRepository, ItemRepository>();
 
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
@@ -99,6 +112,14 @@ namespace MovieProps.WebApp
 
             app.UseRouting();
             app.UseStaticFiles();
+
+            app.UseFileServer(new FileServerOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, "Images")),
+                RequestPath = "/Images",
+                EnableDirectoryBrowsing = true
+            });
 
             app.UseHttpsRedirection();
 

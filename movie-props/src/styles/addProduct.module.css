@@ -1,0 +1,50 @@
+.addProductWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+.productFormContainer {
+  display: flex;
+  flex-direction: row;
+  width: 50rem;
+  max-width: 80rem;
+  padding: 1rem;
+}
+
+.productInputs {
+  flex: 1;
+  padding: 1rem;
+}
+
+.productInputs span {
+  display: block;
+  margin-top: 0.8rem;
+  margin-bottom: -0.3rem;
+}
+
+.productImage {
+  flex: 1;
+  max-height: 40rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  max-height: 40rem;
+  max-width: 20rem;
+  margin-bottom: 1rem;
+}
+
+.imageInput {
+  width: fit-content;
+}
+
+.submit {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0rem 2rem;
+}

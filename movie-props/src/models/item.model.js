@@ -5,4 +5,5 @@ export class ItemModel {
   price = 0;
   quantity = 0;
   buyNo = 0;
+  image = "";
 }

@@ -20,8 +20,8 @@ function MainShop() {
       .getAll()
       .then((res) => {
         if (res.status == 200) {
-          console.log(res.data);
-          setItems(res.data);
+          console.log(res.data.data);
+          setItems(res.data.data);
         } else {
           console.log(res.message);
         }
@@ -33,6 +33,18 @@ function MainShop() {
 
   const openAddItemModal = (event, item) => {
     setBuyNo(0);
+
+    if (localStorage["items"] != "") {
+      let myItems = [];
+      myItems = JSON.parse(localStorage["items"]);
+      myItems.forEach((element) => {
+        if (element.id == item.id) {
+          item.buyNo = element.buyNo;
+          setBuyNo(item.buyNo);
+        }
+      });
+    }
+
     setClickedItem(item);
     setShow(true);
   };
@@ -47,8 +59,19 @@ function MainShop() {
       myItems.push(clickedItem);
       localStorage["items"] = JSON.stringify(myItems);
     } else {
-      let myItems = JSON.parse(localStorage["items"]);
-      myItems.push(clickedItem);
+      let myItems = [];
+      let isUpdate = false;
+      myItems = JSON.parse(localStorage["items"]);
+      myItems.forEach((element) => {
+        if (element.id == clickedItem.id) {
+          element.buyNo = clickedItem.buyNo;
+          isUpdate = true;
+        }
+      });
+      if (!isUpdate) {
+        myItems.push(clickedItem);
+      }
+
       localStorage["items"] = JSON.stringify(myItems);
     }
   };
@@ -73,13 +96,11 @@ function MainShop() {
           <div className="shop-items-wrapper">
             {items.map((item) => (
               <Item
-                key={item.name}
+                key={item.id}
                 name={item.name}
                 description={item.description}
                 price={item.price}
-                image={
-                  "https://m.media-amazon.com/images/I/71Cxh1kebjL._AC_UY1000_.jpg"
-                }
+                image={item.image}
                 onClick={(event) => openAddItemModal(event, item)}
               />
             ))}
@@ -91,9 +112,7 @@ function MainShop() {
           setShow={setShow}
           name={clickedItem.name}
           description={clickedItem.description}
-          image={
-            "https://m.media-amazon.com/images/I/71Cxh1kebjL._AC_UY1000_.jpg"
-          }
+          image={clickedItem.image}
           price={clickedItem.price}
           quantity={clickedItem.quantity}
           buyNo={buyNo}
