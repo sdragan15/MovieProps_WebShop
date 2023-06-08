@@ -9,5 +9,7 @@ namespace MovieProps.DAL.Contract.Repository
 {
     public interface IItemRepository : IRepository<Item>
     {
+        Task DeleteUser(int id);
+        Task UpdateItem(Item item);
     }
 }

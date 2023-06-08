@@ -4,10 +4,12 @@ import Item from "./items-comp/item";
 import AddItemModal from "./modals-comp/addItemModal";
 import { ItemModel } from "../models/item.model";
 import ItemService from "../services/item.service";
+import { useNavigate } from "react-router-dom";
 
 let itemService = ItemService;
 
 function MainShop() {
+  const navigate = useNavigate()
   itemService = new ItemService();
 
   const [clickedItem, setClickedItem] = useState(null);
@@ -34,7 +36,8 @@ function MainShop() {
   const openAddItemModal = (event, item) => {
     setBuyNo(0);
 
-    if (localStorage["items"] != "") {
+    console.log(localStorage['items'])
+    if (localStorage["items"] != "" && localStorage['items'] != undefined ) {
       let myItems = [];
       myItems = JSON.parse(localStorage["items"]);
       myItems.forEach((element) => {
@@ -50,6 +53,10 @@ function MainShop() {
   };
 
   const addToCart = (no) => {
+    if(localStorage['token'] == undefined){
+      navigate('../login')
+      return;
+    }
     if (no <= 0) {
       return;
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,6 @@ namespace MovieProps.BLL.Contract.DTOs.User
         public string? Email { get; set; }
         public DateTime? BirthDay { get; set; }
         public string? Address { get; set; }
-        public string? Image { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }

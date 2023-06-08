@@ -6,4 +6,5 @@ export class ItemModel {
   quantity = 0;
   buyNo = 0;
   image = "";
+  lastUpdateTime = "";
 }

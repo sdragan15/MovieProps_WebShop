@@ -13,5 +13,7 @@ namespace MovieProps.BLL.Contract.Services
     {
         Task<ResponsePackage<List<ItemDto>>> GetAll();
         Task<ResponsePackage<string>> Add(ItemDataIn dataIn);
+        Task<ResponsePackage<string>> UpdateItem(ItemDataIn dataIn);
+        Task<ResponsePackage<string>> DeleteUser(int id);
     }
 }

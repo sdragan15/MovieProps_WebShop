@@ -17,14 +17,7 @@ function MyCart() {
         </div>
         <div className="cart-item-container">
           {items.map((item) => (
-            <CartItem
-              key={item.id}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-              buyNo={item.buyNo}
-              image={item.image}
-            />
+            <CartItem key={item.id} item={item} isBuyNo={true} />
           ))}
         </div>
       </div>

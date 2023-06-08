@@ -49,6 +49,7 @@ namespace MovieProps.WebApp.Controllers
                 {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("id", user.Id.ToString())
                 });
 
                 var expires = DateTime.Now.AddMinutes(100);

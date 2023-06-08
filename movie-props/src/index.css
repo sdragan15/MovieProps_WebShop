@@ -47,3 +47,8 @@ body {
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
+
+.cancel-submit {
+  background-color: gray !important;
+  border: black;
+}

@@ -9,6 +9,9 @@
   box-sizing: border-box;
   background-color: rgba(255, 255, 255);
   border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
+  height: 5rem;
+  font-size: 1.2rem;
+  align-items: center;
 }
 
 .item-wrapper {
@@ -28,6 +31,7 @@
 .navigation-left {
   display: flex;
   width: fit-content;
+  align-items: center;
 }
 
 .navigation-right {
@@ -51,4 +55,15 @@
 .navigation-header a {
   text-decoration: none;
   color: black;
+}
+
+.nav-image {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  margin-right: 0.5rem;
+}
+
+.logout-wrapper {
+  padding-left: 5rem;
 }

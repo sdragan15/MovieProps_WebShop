@@ -14,6 +14,18 @@ class ItemService {
       },
     });
   }
+
+  async updateItem(formData) {
+    return await axiosInstance.post("/Items/Update", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+
+  async deleteItem(id) {
+    return await axiosInstance.post(`/Items/Delete/${id}`);
+  }
 }
 
 export default ItemService;

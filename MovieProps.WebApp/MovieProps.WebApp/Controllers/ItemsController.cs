@@ -33,5 +33,17 @@ namespace MovieProps.WebApp.Controllers
         {
             return Ok(await _itemService.Add(dataIn));
         }
+
+        [HttpPost("Delete/{id}")]
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            return Ok(await _itemService.DeleteUser(id));
+        }
+
+        [HttpPost("Update")]
+        public async Task<IActionResult> UpdateItem([FromForm] ItemDataIn dataIn)
+        {
+            return Ok(await _itemService.UpdateItem(dataIn));
+        }
     }
 }

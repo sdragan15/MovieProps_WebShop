@@ -23,5 +23,22 @@ namespace MovieProps.DAL.Repository
         {
             return await _context.Set<User>().FirstOrDefaultAsync(x => x.Email.Equals(email));
         }
+
+        public async Task<List<Item>> GetAllItemsByUserId(int userId)
+        {
+            var user = await _context.Set<User>()
+                .Include(x => x.Items.Where(x => x.IsDeleted == false))
+                .FirstOrDefaultAsync(x => x.Id == userId && x.IsDeleted == false);
+
+            if(user == null)
+            {
+                return null;
+            }
+            else
+            {
+                return user.Items.ToList();
+            }
+        }
+
     }
 }

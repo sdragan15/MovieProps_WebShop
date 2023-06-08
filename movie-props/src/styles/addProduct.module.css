@@ -3,6 +3,8 @@
   width: 100%;
   justify-content: center;
   margin-top: 5rem;
+  flex-direction: column;
+  align-items: center;
 }
 
 .productFormContainer {
@@ -44,7 +46,20 @@
 }
 
 .submit {
+  display: flex;
+  flex-direction: row;
   box-sizing: border-box;
   width: 100%;
   padding: 0rem 2rem;
+  gap: 5rem;
+}
+
+.form {
+  width: 55rem;
+}
+
+.cardWrapper {
+  margin-top: 4rem;
+  margin-bottom: 5rem;
+  width: 50%;
 }

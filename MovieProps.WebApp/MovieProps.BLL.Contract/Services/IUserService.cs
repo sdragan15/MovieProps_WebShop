@@ -1,4 +1,5 @@
-﻿using MovieProps.BLL.Contract.DTOs.User;
+﻿using MovieProps.BLL.Contract.DTOs.Item;
+using MovieProps.BLL.Contract.DTOs.User;
 using MovieProps.DAL.Contract.Model;
 using MovieProps.Shared.Helper;
 using System;
@@ -12,6 +13,8 @@ namespace MovieProps.BLL.Contract.Services
     public interface IUserService
     {
         Task<ResponsePackage<string>> RegisterUser(UserDataIn dataIn);
-        Task<ResponsePackage<User>> GetByEmail(string email);   
+        Task<ResponsePackage<User>> GetByEmail(string email);
+        Task<ResponsePackage<UserDto>> GetCurrentUser();
+        Task<ResponsePackage<List<ItemDto>>> GetAllItemsForCurrentUser();
     }
 }

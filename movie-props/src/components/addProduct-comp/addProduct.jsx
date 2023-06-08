@@ -1,16 +1,78 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "../../styles/addProduct.module.css";
 import MyInput from "../input-comp/myInput";
 import ItemService from "../../services/item.service";
 import { ItemModel } from "../../models/item.model";
 import { resolvePath } from "react-router-dom";
+import CartItem from "../myCart-comp/cartItem";
+import UserService from "../../services/user.service";
 
 function AddProduct() {
   const itemService = new ItemService();
+  const userService = new UserService();
 
   const [item, setItem] = useState(new ItemModel());
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState();
+  const [myItems, setMyItems] = useState([]);
+  const [isUploaded, setIsUploaded] = useState();
+
+  const uploadData = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("name", item.name);
+    formData.append("description", item.description);
+    formData.append("price", item.price);
+    formData.append("quantity", item.quantity);
+
+    itemService
+      .addItem(formData)
+      .then((response) => {
+        if (response.status == 200) {
+          alert("Success");
+          setIsUploaded(true);
+        } else {
+          console.log(response.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const updateItem = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("id", item.id);
+    formData.append("image", image);
+    formData.append("name", item.name);
+    formData.append("description", item.description);
+    formData.append("price", item.price);
+    formData.append("quantity", item.quantity);
+    formData.append("lastUpdateTime", item.lastUpdateTime);
+
+    itemService.updateItem(formData).then((response) => {
+      if (response.status == 200) {
+        alert("success");
+        setIsUploaded(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    userService
+      .getAllItems()
+      .then((response) => {
+        if (response.status == 200) {
+          setMyItems(response.data.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [isUploaded]);
 
   useEffect(() => {
     if (image != null) {
@@ -27,33 +89,29 @@ function AddProduct() {
     setImage(e.target.files[0]);
   };
 
-  const uploadData = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("name", item.name);
-    formData.append("description", item.description);
-    formData.append("price", item.price);
-    formData.append("quantity", item.quantity);
+  const onEdit = (item) => {
+    setItem(item);
+  };
 
+  const onDelete = (item) => {
+    console.log(item.id);
     itemService
-      .addItem(formData)
+      .deleteItem(item.id)
       .then((response) => {
         if (response.status == 200) {
-          alert("Success");
-        } else {
-          console.log(response.message);
+          alert("success");
+          setIsUploaded(true);
         }
       })
       .catch((error) => {
-        console.log(error.message);
+        console.log(error);
       });
   };
 
   return (
     <>
       <div className={styles.addProductWrapper}>
-        <form method="post" onSubmit={uploadData}>
+        <form method="post" className={styles.form} onSubmit={uploadData}>
           <div className={styles.productFormContainer}>
             <div className={styles.productInputs}>
               <span>Product name:</span>
@@ -118,9 +176,38 @@ function AddProduct() {
             </div>
           </div>
           <div className={styles.submit}>
-            <button className="submit-btn">Add</button>
+            {item.id == 0 && <button className="submit-btn">Add</button>}
+            {item.id != 0 && (
+              <button onClick={updateItem} className="submit-btn">
+                Update
+              </button>
+            )}
+            {item.id != 0 && (
+              <button
+                onClick={() => {
+                  setItem(new ItemModel());
+                }}
+                className="submit-btn cancel-submit"
+              >
+                Cancel
+              </button>
+            )}
           </div>
         </form>
+        <div className={styles.cardWrapper}>
+          <div className="cart-item-container">
+            {myItems.map((item) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                isEdit={true}
+                isDelete={true}
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );

@@ -14,6 +14,8 @@ using System.Text;
 using AutoMapper;
 using MovieProps.BLL.Mappers;
 using Microsoft.Extensions.FileProviders;
+using MovieProps.BLL.Contract.Helpers;
+using MovieProps.BLL.Helpers;
 
 namespace MovieProps.WebApp
 {
@@ -73,27 +75,17 @@ namespace MovieProps.WebApp
                 options.UseSqlServer(Configuration["ConnectionStrings:MovieProps"]),
                 ServiceLifetime.Scoped);
 
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new ItemProfile());
-            });
+            var mapperConfig = ConfigureMapping();
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddTransient<IItemRepository, ItemRepository>();
+            AddServices(services);
 
-            services.AddTransient<IItemService, ItemService>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IImageService, ImageService>();
-            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -125,11 +117,8 @@ namespace MovieProps.WebApp
 
             app.UseCors("CorsPolicy");
 
-
             app.UseAuthentication();
             app.UseAuthorization();
-
-
 
             app.UseEndpoints(endpoints =>
             {
@@ -137,6 +126,30 @@ namespace MovieProps.WebApp
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private MapperConfiguration ConfigureMapping()
+        {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ItemProfile());
+                mc.AddProfile(new UserProfile());
+            });
+
+            return mapperConfig;
+        }
+
+        private void AddServices(IServiceCollection services)
+        {
+            services.AddTransient<IItemRepository, ItemRepository>();
+
+            services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IHttpContextProvider, HttpContextProvider>();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
     }
 }
