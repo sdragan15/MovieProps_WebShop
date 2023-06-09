@@ -40,5 +40,19 @@ namespace MovieProps.DAL.Repository
             }
         }
 
+        public async Task<User?> GetUserById(int userId)
+        {
+            return await _context.Set<User>()
+                .Include(x => x.Role)
+                .FirstOrDefaultAsync(x => x.Id == userId && x.IsDeleted == false);
+        }
+
+        public async Task<List<User>?> GetAllSellers()
+        {
+            return await _context.Set<User>()
+                .Where(x => x.IsDeleted == false && x.Role.Value == Shared.Constants.RoleTypes.SELLER)
+                .OrderByDescending(x => x.LastUpdateTime)
+                .ToListAsync();
+        }
     }
 }

@@ -108,10 +108,14 @@ namespace MovieProps.BLL.Services
             try
             {
                 var item = _mapper.Map<Item>(dataIn);
-                var imagePackage = await _imageService.SaveImage(dataIn.Image);
-                if(imagePackage.StatusCode == Shared.Constants.StatusCode.OK)
+
+                if(dataIn.Image != null)
                 {
-                    item.Image = imagePackage.Data;
+                    var imagePackage = await _imageService.SaveImage(dataIn.Image);
+                    if (imagePackage.StatusCode == Shared.Constants.StatusCode.OK)
+                    {
+                        item.Image = imagePackage.Data;
+                    }
                 }
 
                 await _uow.GetItemRepository().UpdateItem(item);

@@ -16,5 +16,9 @@ namespace MovieProps.BLL.Contract.Services
         Task<ResponsePackage<User>> GetByEmail(string email);
         Task<ResponsePackage<UserDto>> GetCurrentUser();
         Task<ResponsePackage<List<ItemDto>>> GetAllItemsForCurrentUser();
+        Task<ResponsePackage<List<UserDto>>> GetAllSellers();
+        Task<ResponsePackage<string>> ApproveSeller(string email);
+        Task<ResponsePackage<string>> RejectSeller(string email);
+        Task<ResponsePackage<string>> Update(UserDataIn dataIn);
     }
 }

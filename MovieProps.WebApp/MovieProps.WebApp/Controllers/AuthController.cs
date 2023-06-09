@@ -36,7 +36,7 @@ namespace MovieProps.WebApp.Controllers
                 return Unauthorized();
             }
 
-            if(user.Email.Equals(dataIn.Email) && user.Password.Equals(user.Password))
+            if(user.Email.Equals(dataIn.Email) && user.Password.Equals(dataIn.Password))
             {
                 var issuer = _configuration["Jwt:Issuer"];
                 var audience = _configuration["Jwt:Audience"];

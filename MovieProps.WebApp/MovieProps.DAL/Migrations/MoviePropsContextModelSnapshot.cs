@@ -204,11 +204,12 @@ namespace MovieProps.DAL.Migrations
                     b.Property<int?>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId")
-                        .IsUnique()
-                        .HasFilter("[RoleId] IS NOT NULL");
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -261,8 +262,8 @@ namespace MovieProps.DAL.Migrations
             modelBuilder.Entity("MovieProps.DAL.Contract.Model.User", b =>
                 {
                     b.HasOne("MovieProps.DAL.Contract.Model.Role", "Role")
-                        .WithOne()
-                        .HasForeignKey("MovieProps.DAL.Contract.Model.User", "RoleId");
+                        .WithMany()
+                        .HasForeignKey("RoleId");
 
                     b.Navigation("Role");
                 });

@@ -28,7 +28,7 @@ namespace MovieProps.DAL.Context
             var user = modelBuilder.Entity<User>();
             user.Property(x => x.Email).IsRequired();
             user.Property(x => x.Password).IsRequired();
-            user.HasOne(x => x.Role).WithOne().HasForeignKey<User>(y => y.RoleId);
+            user.HasOne(x => x.Role).WithMany().HasForeignKey(x => x.RoleId);
 
             var sellerItem = modelBuilder.Entity<SellerItem>();
             sellerItem.HasOne(x => x.User).WithOne().HasForeignKey<SellerItem>(y => y.UserId);

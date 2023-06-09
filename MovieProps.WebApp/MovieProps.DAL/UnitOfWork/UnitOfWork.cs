@@ -22,6 +22,7 @@ namespace MovieProps.DAL.UnitOfWork
 
         private IItemRepository ItemRepository { get; set; }
         private IUserRepository UserRepository { get; set; }
+        private IRoleRepository RoleRepository { get; set; }
 
 
         public IItemRepository GetItemRepository()
@@ -32,6 +33,11 @@ namespace MovieProps.DAL.UnitOfWork
         public IUserRepository GetUserRepository()
         {
             return UserRepository ?? (UserRepository = new UserRepository(_context));
+        }
+
+        public IRoleRepository GetRoleRepository()
+        {
+            return RoleRepository ?? (RoleRepository = new RoleRepository(_context));
         }
 
         public async Task<int> CompleteAsync()

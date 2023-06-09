@@ -40,8 +40,12 @@ namespace MovieProps.DAL.Repository
                 oldItem.Price = item.Price;
                 oldItem.Quantity = item.Quantity;
                 oldItem.LastUpdateTime = DateTime.Now;
-                oldItem.Image = item.Image;
 
+                if(item.Image != null)
+                {
+                    oldItem.Image = item.Image;
+                }
+                
                 await _context.SaveChangesAsync();
             }
         }

@@ -11,5 +11,7 @@ namespace MovieProps.DAL.Contract.Repository
     {
         Task<User> GetByEmail(string email);
         Task<List<Item>> GetAllItemsByUserId(int userId);
+        Task<User?> GetUserById(int userId);
+        Task<List<User>?> GetAllSellers();
     }
 }

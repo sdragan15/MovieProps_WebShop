@@ -1,0 +1,95 @@
+.mainWrapper {
+	display: flex;
+	align-items: center;
+	margin-top: 5rem;
+	flex-direction: column;
+}
+
+.container {
+	margin-top: 3rem;
+	width: 60%;
+}
+
+.sellersTable {
+	width: 100%;
+	text-align: left;
+	font-size: 1rem;
+	border-collapse: collapse;
+}
+
+.sellersTable td,
+th {
+	padding: 0.5rem 0rem 0.5rem 1rem;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.sellersTable th {
+	font-size: 1.2rem;
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.sellersTable tbody tr {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+}
+
+.aproveColumn {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	height: 100%;
+}
+
+.approveBtn {
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
+	width: 5.5rem;
+	text-align: center;
+	background-color: rgb(13, 136, 13);
+	color: white;
+	cursor: pointer;
+}
+
+.approveBtn:hover {
+	background-color: rgb(4, 87, 4);
+}
+
+.rejectBtn {
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
+	width: 5.5rem;
+	text-align: center;
+	background-color: rgb(168, 18, 18);
+	color: white;
+	cursor: pointer;
+}
+
+.rejectBtn:hover {
+	background-color: rgb(105, 4, 4);
+}
+
+.approvedLabel {
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
+	width: 5.5rem;
+	text-align: center;
+	background-color: rgb(13, 136, 13, 0.5);
+	color: white;
+}
+
+.rejectedLabel {
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
+	width: 5.5rem;
+	text-align: center;
+	background-color: rgb(168, 18, 18, 0.5);
+	color: white;
+}
+
+.profileImg {
+	max-width: 8rem;
+	max-height: 5rem;
+}

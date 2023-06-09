@@ -11,6 +11,7 @@ namespace MovieProps.DAL.Contract.UnitOfWork
     {
         IItemRepository GetItemRepository();
         IUserRepository GetUserRepository();
+        IRoleRepository GetRoleRepository();
         Task<int> CompleteAsync();
     }
 }

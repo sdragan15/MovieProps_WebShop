@@ -13,8 +13,11 @@ namespace MovieProps.BLL.Mappers
     {
         public UserProfile()
         {
-            CreateMap<UserDataIn, User>();
-            CreateMap<User, UserDto>();
+            CreateMap<UserDataIn, User>()
+                .ForMember(x => x.Role, opt => opt.Ignore());
+            CreateMap<User, UserDto>()
+                .ForMember(x => x.Role, opt => opt.MapFrom(x => x.Role.Name))
+                .ForMember(x => x.Status, opt => opt.MapFrom(x => x.Status.ToString()));
 
         }
     }

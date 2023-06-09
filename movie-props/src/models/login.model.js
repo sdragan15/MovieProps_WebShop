@@ -1,15 +1,16 @@
 export class LoginModel {
-  email = "";
-  password = "";
+	email = "";
+	password = "";
 }
 
 export class RegisterModel {
-  email = "";
-  username = "";
-  password = "";
-  name = "";
-  lastname = "";
-  address = "";
-  date = null;
-  image = null;
+	email = "";
+	username = "";
+	password = "";
+	name = "";
+	lastname = "";
+	address = "";
+	date = null;
+	image = null;
+	role = 1;
 }

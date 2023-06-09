@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieProps.Shared.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace MovieProps.DAL.Contract.Model
         public Role? Role { get; set; }
         public int? RoleId { get; set; }
         public ICollection<Item> Items { get; set; }
+        public UserStatus? Status { get; set; }
 
         public User()
         {

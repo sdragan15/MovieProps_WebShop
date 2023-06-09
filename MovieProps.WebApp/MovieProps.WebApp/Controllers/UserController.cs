@@ -34,5 +34,29 @@ namespace MovieProps.WebApp.Controllers
         {
             return Ok(await _userService.GetAllItemsForCurrentUser());
         }
+
+        [HttpGet("GetAllSellers")]
+        public async Task<IActionResult> GetAllSellers()
+        {
+            return Ok(await _userService.GetAllSellers());
+        }
+
+        [HttpPost("Approve/{email}")]
+        public async Task<IActionResult> ApproveSeller(string email)
+        {
+            return Ok(await _userService.ApproveSeller(email));
+        }
+
+        [HttpPost("Reject/{email}")]
+        public async Task<IActionResult> RejectSeller(string email)
+        {
+            return Ok(await _userService.RejectSeller(email));
+        }
+
+        [HttpPost("Update")]
+        public async Task<IActionResult> Update([FromForm] UserDataIn dataIn)
+        {
+            return Ok(await _userService.Update(dataIn));
+        }
     }
 }

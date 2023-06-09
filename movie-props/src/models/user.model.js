@@ -1,8 +1,9 @@
 export class UserModel {
-  firstname = "";
-  lastname = "";
-  email = "";
-  address = "";
-  image = "";
-  date = "";
+	firstName = "";
+	lastName = "";
+	email = "";
+	address = "";
+	image = "";
+	birthDay = "";
+	status = "";
 }
