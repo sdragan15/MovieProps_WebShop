@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieProps.BLL.Contract.DTOs.Item;
+using MovieProps.BLL.Contract.DTOs.Order;
 using MovieProps.BLL.Contract.Services;
 using MovieProps.DAL.Contract.UnitOfWork;
 
@@ -44,6 +45,12 @@ namespace MovieProps.WebApp.Controllers
         public async Task<IActionResult> UpdateItem([FromForm] ItemDataIn dataIn)
         {
             return Ok(await _itemService.UpdateItem(dataIn));
+        }
+
+        [HttpPost("getItemsByIds")]
+        public async Task<IActionResult> GetItemsByIds([FromBody] OrderDataIn dataIn)
+        {
+            return Ok(await _itemService.GetItemsByIds(dataIn.Items));
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieProps.DAL.Context;
 
@@ -11,9 +12,11 @@ using MovieProps.DAL.Context;
 namespace MovieProps.DAL.Migrations
 {
     [DbContext(typeof(MoviePropsContext))]
-    partial class MoviePropsContextModelSnapshot : ModelSnapshot
+    [Migration("20230610164537_Added_Order")]
+    partial class Added_Order
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,81 +63,6 @@ namespace MovieProps.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("MovieProps.DAL.Contract.Model.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Delivered")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastUpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Ordered")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("ShippingCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Total")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("MovieProps.DAL.Contract.Model.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LastUpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("MovieProps.DAL.Contract.Model.Role", b =>
@@ -219,30 +147,6 @@ namespace MovieProps.DAL.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("MovieProps.DAL.Contract.Model.Order", b =>
-                {
-                    b.HasOne("MovieProps.DAL.Contract.Model.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MovieProps.DAL.Contract.Model.OrderItem", b =>
-                {
-                    b.HasOne("MovieProps.DAL.Contract.Model.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId");
-
-                    b.HasOne("MovieProps.DAL.Contract.Model.Order", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId");
-
-                    b.Navigation("Item");
-                });
-
             modelBuilder.Entity("MovieProps.DAL.Contract.Model.User", b =>
                 {
                     b.HasOne("MovieProps.DAL.Contract.Model.Role", "Role")
@@ -250,11 +154,6 @@ namespace MovieProps.DAL.Migrations
                         .HasForeignKey("RoleId");
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("MovieProps.DAL.Contract.Model.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("MovieProps.DAL.Contract.Model.User", b =>

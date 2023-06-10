@@ -49,5 +49,30 @@ namespace MovieProps.DAL.Repository
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<List<Item>> GetItemsByIds(List<int> ids)
+        {
+            return await _context.Set<Item>()
+                .Where(x => ids.Contains(x.Id) && x.IsDeleted == false)
+                .ToListAsync();
+        }
+
+        public async Task<List<Item>> GetAllItems()
+        {
+            return await _context.Set<Item>()
+                .Where(x => x.IsDeleted == false && x.Quantity > 0)
+                .ToListAsync();
+        }
+
+        public async Task Subtract(int id, int count)
+        {
+            var item = await _context.Set<Item>()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (item == null) return;
+
+            item.Quantity -= count;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

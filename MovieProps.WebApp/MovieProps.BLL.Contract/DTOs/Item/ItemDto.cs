@@ -16,5 +16,6 @@ namespace MovieProps.BLL.Contract.DTOs.Item
         public decimal? Price { get; set; }
         public int Quantity { get; set; }
         public DateTime? LastUpdateTime { get; set; }
+        public int Count { get; set; }
     }
 }

@@ -221,7 +221,7 @@ function AddProduct() {
 					</div>
 				</form>
 				<div className={styles.cardWrapper}>
-					<div className="cart-item-container">
+					<div className={styles.addItemItemContainer}>
 						{myItems.map((item) => (
 							<CartItem
 								key={item.id}

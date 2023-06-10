@@ -29,15 +29,6 @@ namespace MovieProps.DAL.Context
             user.Property(x => x.Email).IsRequired();
             user.HasOne(x => x.Role).WithMany().HasForeignKey(x => x.RoleId);
 
-            var sellerItem = modelBuilder.Entity<SellerItem>();
-            sellerItem.HasOne(x => x.User).WithOne().HasForeignKey<SellerItem>(y => y.UserId);
-            sellerItem.HasOne(x => x.Item).WithOne().HasForeignKey<SellerItem>(y => y.ItemId);
-            sellerItem.Property(x => x.Price).HasPrecision(12, 3);
-
-            var buyerItem = modelBuilder.Entity<BuyerItem>();
-            buyerItem.HasOne(x => x.User).WithOne().HasForeignKey<BuyerItem>(y => y.UserId);
-            buyerItem.HasOne(x => x.Item).WithOne().HasForeignKey<BuyerItem>(y => y.ItemId);
-
             var item = modelBuilder.Entity<Item>();
             item.Property(x => x.Price).HasPrecision(12, 3);
 
@@ -45,9 +36,8 @@ namespace MovieProps.DAL.Context
 
         public DbSet<User> Users { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<SellerItem> SellerItems { get; set; }
-        public DbSet<BuyerItem> BuyerItems { get; set; }
         public DbSet<Role> Roles { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }

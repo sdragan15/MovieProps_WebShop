@@ -135,6 +135,7 @@ namespace MovieProps.WebApp
             {
                 mc.AddProfile(new ItemProfile());
                 mc.AddProfile(new UserProfile());
+                mc.AddProfile(new OrderProfile());
             });
 
             return mapperConfig;
@@ -151,6 +152,7 @@ namespace MovieProps.WebApp
             services.AddTransient<IHttpContextProvider, HttpContextProvider>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<HttpClient, HttpClient>();
+            services.AddTransient<IOrderService, OrderService>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }

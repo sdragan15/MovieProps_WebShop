@@ -1,65 +1,68 @@
 .addProductWrapper {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  margin-top: 5rem;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 5rem;
+	flex-direction: column;
+	align-items: center;
 }
 
 .productFormContainer {
-  display: flex;
-  flex-direction: row;
-  width: 50rem;
-  max-width: 80rem;
-  padding: 1rem;
+	display: flex;
+	flex-direction: row;
+	width: 50rem;
+	max-width: 80rem;
+	padding: 1rem;
 }
 
 .productInputs {
-  flex: 1;
-  padding: 1rem;
+	flex: 1;
+	padding: 1rem;
 }
 
 .productInputs span {
-  display: block;
-  margin-top: 0.8rem;
-  margin-bottom: -0.3rem;
+	display: block;
+	margin-top: 0.8rem;
+	margin-bottom: -0.3rem;
 }
 
 .productImage {
-  flex: 1;
-  max-height: 40rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	flex: 1;
+	max-height: 40rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .img {
-  max-height: 40rem;
-  max-width: 20rem;
-  margin-bottom: 1rem;
+	max-height: 40rem;
+	max-width: 20rem;
+	margin-bottom: 1rem;
 }
 
 .imageInput {
-  width: fit-content;
+	width: fit-content;
 }
 
 .submit {
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 0rem 2rem;
-  gap: 5rem;
+	display: flex;
+	flex-direction: row;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0rem 2rem;
+	gap: 5rem;
 }
 
 .form {
-  width: 55rem;
+	width: 55rem;
 }
 
 .cardWrapper {
-  margin-top: 4rem;
-  margin-bottom: 5rem;
-  width: 50%;
+	margin-top: 4rem;
+	margin-bottom: 5rem;
+	width: 50%;
+}
+
+.addItemItemContainer {
 }

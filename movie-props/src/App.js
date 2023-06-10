@@ -14,6 +14,7 @@ import Sellers from "./components/sellers-comp/sellers";
 import NotApproved from "./components/notApproved";
 import Profile from "./components/profile";
 import Toastr from "./helpers/toastr";
+import MyOrders from "./components/myOrders";
 
 function App() {
 	const userService = new UserService();
@@ -70,6 +71,7 @@ function App() {
 					<Route path="logout" element={<LogOut onLogOut={onLogOut} />} />
 					<Route path="sellers" element={<Sellers />} />
 					<Route path="profile" element={<Profile />} />
+					<Route path="my-orders" element={<MyOrders />} />
 					<Route
 						path="pending"
 						element={

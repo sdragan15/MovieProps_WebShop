@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieProps.DAL.Context;
 
@@ -11,9 +12,11 @@ using MovieProps.DAL.Context;
 namespace MovieProps.DAL.Migrations
 {
     [DbContext(typeof(MoviePropsContext))]
-    partial class MoviePropsContextModelSnapshot : ModelSnapshot
+    [Migration("20230610164704_Added_OrderItem")]
+    partial class Added_OrderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,29 +73,13 @@ namespace MovieProps.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Delivered")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("LastUpdateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("OrderType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Ordered")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal?>("ShippingCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Total")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
@@ -113,9 +100,6 @@ namespace MovieProps.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Count")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -126,6 +110,9 @@ namespace MovieProps.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

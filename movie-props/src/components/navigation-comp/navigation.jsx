@@ -28,6 +28,7 @@ function Navigation({ user }) {
 				<NavigationItem item={"Sellers"} path={"sellers"} />
 				<NavigationItem item={"My Cart"} path={"my-cart"} />
 				<NavigationItem item={"My Products"} path={"my-product"} />
+				<NavigationItem item={"My Orders"} path={"my-orders"} />
 				<NavigationItem item={"Shop"} path={"main-shop"} />
 			</>
 		);
@@ -58,6 +59,7 @@ function Navigation({ user }) {
 				<NavigationItem item={"Profile"} path={"profile"} />
 				<NavigationItem item={"My Cart"} path={"my-cart"} />
 				{approved}
+				<NavigationItem item={"My Orders"} path={"my-orders"} />
 				<NavigationItem item={"Shop"} path={"main-shop"} />
 			</>
 		);
@@ -67,6 +69,7 @@ function Navigation({ user }) {
 				<img className="nav-image" src={user.image}></img>
 				<NavigationItem item={"Profile"} path={"profile"} />
 				<NavigationItem item={"My Cart"} path={"my-cart"} />
+				<NavigationItem item={"My Orders"} path={"my-orders"} />
 				<NavigationItem item={"Shop"} path={"main-shop"} />
 			</>
 		);

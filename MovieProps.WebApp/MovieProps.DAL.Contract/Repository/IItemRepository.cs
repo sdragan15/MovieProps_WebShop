@@ -11,5 +11,8 @@ namespace MovieProps.DAL.Contract.Repository
     {
         Task DeleteUser(int id);
         Task UpdateItem(Item item);
+        Task<List<Item>> GetItemsByIds(List<int> ids);
+        Task<List<Item>> GetAllItems();
+        Task Subtract(int id, int count);
     }
 }

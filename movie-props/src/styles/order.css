@@ -1,0 +1,62 @@
+.order-table {
+	width: 100%;
+	text-align: center;
+	margin-top: 3rem;
+	border-collapse: collapse;
+}
+
+.order-thead th {
+	border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+	padding: 1rem;
+}
+
+.order-tbody td {
+	padding: 1rem;
+	text-align: center;
+	font-size: 1rem;
+}
+
+.order-tbody tr:nth-child(even) {
+	background-color: rgb(136, 136, 136, 0.2);
+}
+
+.order-cancel-td {
+	width: 8rem;
+}
+
+.order-cancel-btn {
+	width: 8rem;
+}
+
+.order-cancel-btn button {
+	width: 100%;
+	background-color: rgb(170, 170, 170, 0.5);
+	color: black;
+	font-size: 1rem;
+}
+
+.order-cancel-btn button:hover {
+	background-color: rgb(0, 0, 76);
+	color: white;
+}
+
+.order-delivered {
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
+	background-color: rgba(38, 196, 38, 0.5);
+}
+
+.order-delivering {
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
+	background-color: rgba(224, 248, 11, 0.7);
+}
+
+.order-canceled {
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
+	background-color: rgba(167, 25, 25, 0.5);
+}

@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using MovieProps.BLL.Contract.DTOs.Item;
+using MovieProps.BLL.Contract.DTOs.Order;
 using MovieProps.BLL.Contract.Helpers;
 using MovieProps.BLL.Contract.Services;
 using MovieProps.DAL.Contract.Model;
 using MovieProps.DAL.Contract.Repository;
 using MovieProps.DAL.Contract.UnitOfWork;
 using MovieProps.DAL.UnitOfWork;
+using MovieProps.Shared.Constants;
 using MovieProps.Shared.Helper;
 using System;
 using System.Collections.Generic;
@@ -81,7 +83,7 @@ namespace MovieProps.BLL.Services
         {
             try
             {
-                var items = await _uow.GetItemRepository().GetAll();
+                var items = await _uow.GetItemRepository().GetAllItems();
 
                 var result = new List<ItemDto>();
 
@@ -100,6 +102,47 @@ namespace MovieProps.BLL.Services
             {
                 return new ResponsePackage<List<ItemDto>>(Shared.Constants.StatusCode.INTERNAL_SERVER_ERROR, e.Message);
             }
+        }
+
+        public async Task<ResponsePackage<ItemBallanceDto>> GetItemsByIds(List<OrderItemDataIn> dataIn)
+        {
+            var response = await _uow.GetItemRepository().GetItemsByIds(dataIn.Select(x => x.Id ?? 0).ToList());
+            var result = new ItemBallanceDto();
+            
+            if(response == null)
+            {
+                return new ResponsePackage<ItemBallanceDto>()
+                {
+                    Data = result
+                };
+            }
+
+            result.ProductsCost = 0;
+            result.Items = _mapper.Map<List<ItemDto>>(response);
+            foreach(var item in result.Items)
+            {
+                var temp = dataIn.FirstOrDefault(x => x.Id == item.Id);
+                if(temp != null)
+                {
+                    result.ProductsCost += item.Price * temp.Count;
+                }
+                
+            }
+
+            result.Shipping = ShippingCost.Price;
+            result.Total = result.ProductsCost + result.Shipping;
+
+            return new ResponsePackage<ItemBallanceDto>()
+            {
+                Data = result
+            };
+            
+        }
+
+        public async Task<ResponsePackage<string>> Subtract(int id, int count)
+        {
+            await _uow.GetItemRepository().Subtract(id, count);
+            return new ResponsePackage<string>();
         }
 
         public async Task<ResponsePackage<string>> UpdateItem(ItemDataIn dataIn)

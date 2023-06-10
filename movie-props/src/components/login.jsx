@@ -39,7 +39,6 @@ function Login({ onLogIn }) {
 	};
 
 	const handleLoginSuccess = (accessToken) => {
-		console.log(accessToken + " drugi data");
 		localStorage["token"] = accessToken;
 		onLogIn();
 		toast.success("Facebook login successfuly!");
