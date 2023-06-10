@@ -21,10 +21,13 @@ function App() {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
-		if (localStorage["user"] != undefined && localStorage["user"] != "") {
+		if (
+			localStorage["user"] != undefined &&
+			localStorage["user"] != "" &&
+			localStorage["user"] != null
+		) {
 			let userTemp = new UserModel();
 			userTemp = JSON.parse(localStorage["user"]);
-			console.log(userTemp);
 			setUser(userTemp);
 		}
 	}, []);

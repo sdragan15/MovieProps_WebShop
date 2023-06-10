@@ -22,7 +22,7 @@ namespace MovieProps.BLL.Services
         private readonly IMapper _mapper;
         private readonly IHttpContextProvider _httpContextProvider;
 
-        private readonly int _userId;
+        private readonly string _userEmail;
 
         public UserService(IUnitOfWork unitOfWork, IImageService imageService, IMapper mapper,
             IHttpContextProvider provider)
@@ -31,7 +31,7 @@ namespace MovieProps.BLL.Services
             _imageService = imageService;
             _mapper = mapper;
             _httpContextProvider = provider;
-            _userId = _httpContextProvider.GetUserId();
+            _userEmail = _httpContextProvider.GetUserEmail();
         }
 
         public async Task<ResponsePackage<User>> GetByEmail(string email)
@@ -46,13 +46,12 @@ namespace MovieProps.BLL.Services
         {
             try
             {
-                var user = await _uow.GetUserRepository().GetUserById(_userId);
+                var user = await _uow.GetUserRepository().GetByEmail(_userEmail);
                 if(user == null)
                 {
                     return new ResponsePackage<UserDto>(StatusCode.NOT_FOUND, "User not found");
                 }
 
-                user.Image = _imageService.LoadImage(user.Image);
                 var result = _mapper.Map<UserDto>(user);
 
                 return new ResponsePackage<UserDto>()
@@ -118,14 +117,13 @@ namespace MovieProps.BLL.Services
         {
             try
             {
-                var items = await _uow.GetUserRepository().GetAllItemsByUserId(_userId);
+                var items = await _uow.GetUserRepository().GetAllItemsByUserEmail(_userEmail);
 
                 var result = new List<ItemDto>();
 
                 foreach (var temp in items)
                 {
                     var newItem = _mapper.Map<ItemDto>(temp);
-                    newItem.Image = _imageService.LoadImage(temp.Image);
                     result.Add(newItem);
                 }
 
@@ -147,10 +145,6 @@ namespace MovieProps.BLL.Services
                 return new ResponsePackage<List<UserDto>>();
 
             var result = _mapper.Map<List<UserDto>>(users);
-            foreach(var user in result)
-            {
-                user.Image = _imageService.LoadImage(user.Image);
-            }
 
             return new ResponsePackage<List<UserDto>>()
             {
@@ -195,7 +189,7 @@ namespace MovieProps.BLL.Services
                 return new ResponsePackage<string>(StatusCode.BAD_REQUEST, "Email is required!");
             }
 
-            var user = await _uow.GetUserRepository().GetUserById(_userId);
+            var user = await _uow.GetUserRepository().GetByEmail(_userEmail);
             if(user == null)
             {
                 return new ResponsePackage<string>(StatusCode.INTERNAL_SERVER_ERROR, "Internal Server Error");

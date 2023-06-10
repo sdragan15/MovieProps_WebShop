@@ -10,7 +10,7 @@ namespace MovieProps.DAL.Contract.Repository
     public interface IUserRepository : IRepository<User>
     {
         Task<User> GetByEmail(string email);
-        Task<List<Item>> GetAllItemsByUserId(int userId);
+        Task<List<Item>> GetAllItemsByUserEmail(string userEmail);
         Task<User?> GetUserById(int userId);
         Task<List<User>?> GetAllSellers();
     }

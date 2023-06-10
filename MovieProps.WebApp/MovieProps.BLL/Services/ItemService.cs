@@ -22,7 +22,7 @@ namespace MovieProps.BLL.Services
         private readonly IImageService _imageService;
         private readonly IHttpContextProvider _httpProvider;
 
-        private readonly int _userId;
+        private readonly string _userEmail;
 
         public ItemService(IUnitOfWork unitofwork, IMapper mapper, IImageService imageService,
             IHttpContextProvider httpContextProvider)
@@ -31,7 +31,7 @@ namespace MovieProps.BLL.Services
             _mapper = mapper;
             _imageService = imageService;
             _httpProvider = httpContextProvider;
-            _userId = _httpProvider.GetUserId();
+            _userEmail = _httpProvider.GetUserEmail();
         }
 
         public async Task<ResponsePackage<string>> Add(ItemDataIn dataIn)
@@ -48,7 +48,7 @@ namespace MovieProps.BLL.Services
                     item.Image = responsePath.Data;
                 }
 
-                var user = await _uow.GetUserRepository().GetById(_userId);
+                var user = await _uow.GetUserRepository().GetByEmail(_userEmail);
                 if(user == null)
                 {
                     return new ResponsePackage<string>(Shared.Constants.StatusCode.NOT_FOUND, "Not found");
@@ -88,7 +88,6 @@ namespace MovieProps.BLL.Services
                 foreach (var temp in items)
                 {
                     var newItem = _mapper.Map<ItemDto>(temp);
-                    newItem.Image = _imageService.LoadImage(temp.Image);
                     result.Add(newItem);
                 }
 

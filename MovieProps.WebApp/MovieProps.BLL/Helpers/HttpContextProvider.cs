@@ -2,6 +2,7 @@
 using MovieProps.BLL.Contract.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -18,15 +19,16 @@ namespace MovieProps.BLL.Helpers
             _context = contextAccessor;
         }
 
-        public int GetUserId()
+        public string GetUserEmail()
         {
             try
             {
-                return int.Parse(_context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "id")?.Value);
+                var email = _context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+                return email?.Value;
             }
             catch (Exception)
             {
-                return 0;
+                return "";
             }
             
         }

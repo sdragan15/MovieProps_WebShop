@@ -42,25 +42,14 @@ namespace MovieProps.BLL.Services
 
             string imageUrl = "/Images/" + uniqueName;
 
+            string baseUrl = $"{_httpContext.HttpContext.Request.Scheme}://{_httpContext.HttpContext.Request.Host}";
+            string pathForDb = imageUrl;
+            string result = baseUrl + pathForDb;
+
             return new ResponsePackage<string>()
             {
-                Data = imageUrl
+                Data = result
             };
-        }
-
-        public string LoadImage(string path)
-        {
-            if(path == null)
-            {
-                return "";
-            }
-
-            string baseUrl = $"{_httpContext.HttpContext.Request.Scheme}://{_httpContext.HttpContext.Request.Host}";
-            string imagePath = path;
-            string imageUrl = baseUrl + imagePath;
-
-            return imageUrl;
-
         }
     }
 }

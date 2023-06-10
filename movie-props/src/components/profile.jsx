@@ -17,7 +17,8 @@ function Profile() {
 				if (response.status == 200) {
 					let data = new UserModel();
 					data = response.data.data;
-					data.birthDay = data.birthDay.split("T")[0];
+					if (data.birthDay != null)
+						data.birthDay = data.birthDay.split("T")[0];
 					setUser(data);
 					localStorage["user"] = JSON.stringify(response.data.data);
 				} else {

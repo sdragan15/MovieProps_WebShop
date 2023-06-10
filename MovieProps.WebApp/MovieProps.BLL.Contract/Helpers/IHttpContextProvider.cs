@@ -8,6 +8,6 @@ namespace MovieProps.BLL.Contract.Helpers
 {
     public interface IHttpContextProvider
     {
-        int GetUserId();
+        string GetUserEmail();
     }
 }

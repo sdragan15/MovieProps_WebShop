@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MovieProps.BLL.Contract.DTOs.User;
+using MovieProps.DAL.Contract.Model;
 using MovieProps.Shared.Helper;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace MovieProps.BLL.Contract.Services
 {
-    public interface IImageService
+    public interface IAuthService
     {
-        Task<ResponsePackage<string>> SaveImage(IFormFile formFile);
+        Task<ResponsePackage<User>> LoginWithFacebook(string token);
     }
 }

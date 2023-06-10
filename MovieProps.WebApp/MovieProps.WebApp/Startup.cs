@@ -61,6 +61,7 @@ namespace MovieProps.WebApp
                     ValidateIssuerSigningKey = true
                 };
             });
+
             services.AddAuthorization();
 
             var config = new ConfigurationBuilder()
@@ -148,6 +149,8 @@ namespace MovieProps.WebApp
             services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IHttpContextProvider, HttpContextProvider>();
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<HttpClient, HttpClient>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }

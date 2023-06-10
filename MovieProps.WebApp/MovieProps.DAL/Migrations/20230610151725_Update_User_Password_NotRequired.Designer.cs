@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieProps.DAL.Context;
 
@@ -11,9 +12,11 @@ using MovieProps.DAL.Context;
 namespace MovieProps.DAL.Migrations
 {
     [DbContext(typeof(MoviePropsContext))]
-    partial class MoviePropsContextModelSnapshot : ModelSnapshot
+    [Migration("20230610151725_Update_User_Password_NotRequired")]
+    partial class Update_User_Password_NotRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

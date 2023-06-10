@@ -21,14 +21,16 @@ namespace MovieProps.DAL.Repository
 
         public async Task<User> GetByEmail(string email)
         {
-            return await _context.Set<User>().FirstOrDefaultAsync(x => x.Email.Equals(email));
+            return await _context.Set<User>()
+                .Include(x => x.Role)
+                .FirstOrDefaultAsync(x => x.Email.Equals(email));
         }
 
-        public async Task<List<Item>> GetAllItemsByUserId(int userId)
+        public async Task<List<Item>> GetAllItemsByUserEmail(string userEmail)
         {
             var user = await _context.Set<User>()
                 .Include(x => x.Items.Where(x => x.IsDeleted == false))
-                .FirstOrDefaultAsync(x => x.Id == userId && x.IsDeleted == false);
+                .FirstOrDefaultAsync(x => x.Email == userEmail && x.IsDeleted == false);
 
             if(user == null)
             {
