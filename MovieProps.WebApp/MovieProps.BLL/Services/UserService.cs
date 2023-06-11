@@ -7,6 +7,7 @@ using MovieProps.DAL.Contract.Model;
 using MovieProps.DAL.Contract.UnitOfWork;
 using MovieProps.Shared.Constants;
 using MovieProps.Shared.Helper;
+using MovieProps.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,17 +22,19 @@ namespace MovieProps.BLL.Services
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
         private readonly IHttpContextProvider _httpContextProvider;
+        private readonly IEmailService _emailService;
 
         private readonly string _userEmail;
 
         public UserService(IUnitOfWork unitOfWork, IImageService imageService, IMapper mapper,
-            IHttpContextProvider provider)
+            IHttpContextProvider provider, IEmailService emailService)
         {
             _uow = unitOfWork;
             _imageService = imageService;
             _mapper = mapper;
             _httpContextProvider = provider;
             _userEmail = _httpContextProvider.GetUserEmail();
+            _emailService = emailService;
         }
 
         public async Task<ResponsePackage<User>> GetByEmail(string email)
@@ -67,7 +70,7 @@ namespace MovieProps.BLL.Services
 
         public async Task<ResponsePackage<string>> RegisterUser(UserDataIn dataIn)
         {
-            if(String.IsNullOrWhiteSpace(dataIn.Email))
+            if (String.IsNullOrWhiteSpace(dataIn.Email))
             {
                 return new ResponsePackage<string>(StatusCode.BAD_REQUEST, "Email is required");
             }
@@ -163,6 +166,13 @@ namespace MovieProps.BLL.Services
             user.Status = UserStatus.APPROVED;
             user.LastUpdateTime = DateTime.Now;
 
+            var message = new Message();
+            message.To = "draganstancevic15@gmail.com";
+            message.Subject = "Movie Props";
+            message.Content = "You are approved by admin!";
+
+            _emailService.SendEmail(message);
+
             await _uow.CompleteAsync();
             return new ResponsePackage<string>();
         }
@@ -174,6 +184,13 @@ namespace MovieProps.BLL.Services
             {
                 return new ResponsePackage<string>(StatusCode.NOT_FOUND, "Not found");
             }
+
+            var message = new Message();
+            message.To = "draganstancevic15@gmail.com";
+            message.Subject = "Movie Props";
+            message.Content = "You are rejected by admin XD!";
+
+            _emailService.SendEmail(message);
 
             user.Status = UserStatus.REJECTED;
             user.LastUpdateTime = DateTime.Now;

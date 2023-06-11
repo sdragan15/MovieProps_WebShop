@@ -1,69 +1,72 @@
 .navigation-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  position: fixed;
-  width: 100%;
-  padding: 1rem;
-  padding-right: 2rem;
-  box-sizing: border-box;
-  background-color: rgba(255, 255, 255);
-  border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
-  height: 5rem;
-  font-size: 1.2rem;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	position: fixed;
+	width: 100%;
+	padding: 1rem;
+	padding-right: 2rem;
+	box-sizing: border-box;
+	background-color: var(--background);
+	border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
+	height: 5rem;
+	font-size: 1.2rem;
+	align-items: center;
+	z-index: 20;
+	color: var(--text);
 }
 
 .item-wrapper {
-  width: fit-content;
-  padding: 0rem 1rem 0rem 1rem;
-  height: 2rem;
-  text-align: center;
-  line-height: 2rem;
-  cursor: pointer;
+	width: fit-content;
+	padding: 0rem 1rem 0rem 1rem;
+	height: 2rem;
+	text-align: center;
+	line-height: 2rem;
+	cursor: pointer;
 }
 
 .item-wrapper:hover {
-  background-color: rgba(128, 128, 128, 0.278);
-  transition: background-color 0.1s;
+	background-color: rgba(128, 128, 128, 0.278);
+	transition: background-color 0.1s;
 }
 
 .navigation-left {
-  display: flex;
-  width: fit-content;
-  align-items: center;
+	display: flex;
+	width: fit-content;
+	align-items: center;
 }
 
 .navigation-right {
-  display: flex;
-  width: fit-content;
+	display: flex;
+	width: fit-content;
 }
 
 .navigation-header {
-  font-size: 1.5rem;
-  font-weight: 600;
-  width: fit-content;
-  padding: 0rem 1rem 0rem 1rem;
-  height: 2rem;
-  text-align: center;
-  line-height: 2rem;
-  position: absolute;
-  margin-left: 50%;
-  transform: translate(-60%);
+	font-size: 1.5rem;
+	font-weight: 600;
+	width: fit-content;
+	padding: 0rem 1rem 0rem 1rem;
+	height: 2rem;
+	text-align: center;
+	line-height: 2rem;
+	position: absolute;
+	margin-left: 50%;
+	transform: translate(-60%);
+	color: var(--text);
 }
 
 .navigation-header a {
-  text-decoration: none;
-  color: black;
+	text-decoration: none;
+	color: var(--text);
 }
 
 .nav-image {
-  width: 4rem;
-  height: 4rem;
-  object-fit: contain;
-  margin-right: 0.5rem;
+	width: 4rem;
+	height: 4rem;
+	object-fit: contain;
+	margin-right: 0.5rem;
 }
 
 .logout-wrapper {
-  padding-left: 5rem;
+	padding-left: 5rem;
 }

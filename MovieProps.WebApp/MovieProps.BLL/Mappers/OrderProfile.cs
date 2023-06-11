@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MovieProps.BLL.Contract.DTOs.Order;
 using MovieProps.DAL.Contract.Model;
+using MovieProps.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,18 @@ namespace MovieProps.BLL.Mappers
             .ForMember(x => x.Total, opt => opt.MapFrom(x => x.Total))
             .ForMember(x => x.Items, opt => opt.MapFrom(x => x.OrderItems))
             .ForMember(x => x.Shipping, opt => opt.MapFrom(x => x.ShippingCost))
-            .ForMember(x => x.Ordered, opt => opt.MapFrom(x => x.Ordered))
-            .ForMember(x => x.Delivered, opt => opt.MapFrom(x => x.Delivered))
+            .ForMember(x => x.Ordered, opt => opt.MapFrom(x => x.Ordered.ToString("g")))
+            .ForMember(x => x.Delivered, opt => opt.MapFrom(x => x.Delivered.ToString("g")))
             .ForMember(x => x.OrderType, opt => opt.MapFrom(x => x.OrderType))
             .ForMember(x => x.Products, opt => opt.MapFrom(x => x.Total - x.ShippingCost))
             ;
 
             CreateMap<OrderItem, OrderItemDto>();
+
+            CreateMap<OrderedItemsTemp, OrderedItemDto>()
+            .ForMember(x => x.Delivered, opt => opt.MapFrom(x => x.Delivered.ToString("g")))
+            .ForMember(x => x.Ordered, opt => opt.MapFrom(x => x.Ordered.ToString("g")))
+            ;
         }
     }
 }

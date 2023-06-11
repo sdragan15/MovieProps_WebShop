@@ -119,6 +119,7 @@ function MyCart() {
 
 	return (
 		<>
+			<div className="mycart-background"></div>
 			<div className="cart-wrapper">
 				<div className="cart-item-container">
 					{items.map((item) => (
@@ -147,15 +148,15 @@ function MyCart() {
 							</tr>
 							<tr className="cart-side">
 								<th>Products:</th>
-								<td>-{ballance.productsCost} rsd</td>
+								<td>{ballance.productsCost} rsd</td>
 							</tr>
 							<tr className="cart-side cart-bottom-border">
 								<th>Shipping:</th>
-								<td>-{ballance.shipping} rsd</td>
+								<td>{ballance.shipping} rsd</td>
 							</tr>
 							<tr className="cart-total-label">
 								<th>Total:</th>
-								<td>-{ballance.total} rsd</td>
+								<td>{ballance.total} rsd</td>
 							</tr>
 							<tr>
 								<td colSpan={2}>

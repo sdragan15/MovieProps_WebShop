@@ -11,13 +11,18 @@
 }
 
 .order-tbody td {
-	padding: 1rem;
+	padding: 1.5rem 1rem;
 	text-align: center;
 	font-size: 1rem;
 }
 
 .order-tbody tr:nth-child(even) {
 	background-color: rgb(136, 136, 136, 0.2);
+}
+
+.order-tbody tr:hover {
+	background-color: rgba(128, 128, 128, 0.5);
+	cursor: pointer;
 }
 
 .order-cancel-td {
@@ -59,4 +64,25 @@
 	border-radius: 1rem;
 	padding: 0.5rem 1rem;
 	background-color: rgba(167, 25, 25, 0.5);
+}
+
+.order-modal-wrapper {
+	position: fixed;
+	display: flex;
+	box-sizing: border-box;
+	justify-content: center;
+	top: 0rem;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	padding: 5rem;
+	padding-top: 9rem;
+}
+
+.order-modal-container {
+	background-color: white;
+	width: 70%;
+	padding: 1rem;
+	overflow-y: scroll;
 }

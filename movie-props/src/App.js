@@ -15,6 +15,8 @@ import NotApproved from "./components/notApproved";
 import Profile from "./components/profile";
 import Toastr from "./helpers/toastr";
 import MyOrders from "./components/myOrders";
+import AllOrders from "./components/allOrders";
+import OrderedItems from "./components/orderedItems";
 
 function App() {
 	const userService = new UserService();
@@ -58,31 +60,36 @@ function App() {
 	return (
 		<>
 			<div className="main-container">
-				<Toastr />
-				<Navigation user={user} />
-				<h1>Ovo je env file: {process.env.REACT_APP_SERVER_URL} jj</h1>
-				<Routes>
-					<Route path="" element={<Dashboard />} />
-					<Route path="login" element={<Login onLogIn={onLogIn} />} />
-					<Route path="register" element={<Register />} />
-					<Route path="main-shop" element={<MainShop />} />
-					<Route path="my-cart" element={<MyCart />} />
-					<Route path="my-product" element={<AddProduct />} />
-					<Route path="logout" element={<LogOut onLogOut={onLogOut} />} />
-					<Route path="sellers" element={<Sellers />} />
-					<Route path="profile" element={<Profile />} />
-					<Route path="my-orders" element={<MyOrders />} />
-					<Route
-						path="pending"
-						element={
-							<NotApproved text={"Waiting for approval from admin..."} />
-						}
-					/>
-					<Route
-						path="rejected"
-						element={<NotApproved text={"You are not approved from admin!"} />}
-					/>
-				</Routes>
+				<div className="main-overlay">
+					<Toastr />
+					<Navigation user={user} />
+					<Routes>
+						<Route path="" element={<Dashboard />} />
+						<Route path="login" element={<Login onLogIn={onLogIn} />} />
+						<Route path="register" element={<Register />} />
+						<Route path="main-shop" element={<MainShop />} />
+						<Route path="my-cart" element={<MyCart />} />
+						<Route path="my-product" element={<AddProduct />} />
+						<Route path="logout" element={<LogOut onLogOut={onLogOut} />} />
+						<Route path="sellers" element={<Sellers />} />
+						<Route path="profile" element={<Profile />} />
+						<Route path="my-orders" element={<MyOrders />} />
+						<Route path="all-orders" element={<AllOrders />} />
+						<Route path="ordered-items" element={<OrderedItems />} />
+						<Route
+							path="pending"
+							element={
+								<NotApproved text={"Waiting for approval from admin..."} />
+							}
+						/>
+						<Route
+							path="rejected"
+							element={
+								<NotApproved text={"You are not approved from admin!"} />
+							}
+						/>
+					</Routes>
+				</div>
 			</div>
 		</>
 	);

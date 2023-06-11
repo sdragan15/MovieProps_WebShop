@@ -27,5 +27,17 @@ namespace MovieProps.WebApp.Controllers
         {
             return Ok(await _orderService.GetMyOrders());
         }
+
+        [HttpGet("getAllOrders")]
+        public async Task<IActionResult> GetAllOrders()
+        {
+            return Ok(await _orderService.GetMyOrders());
+        }
+
+        [HttpGet("getOrderedItemsByUserEmail")]
+        public async Task<IActionResult> GetOrderedItemsByUserEmail()
+        {
+            return Ok(await _orderService.GetOrderedItemsByUserEmail());
+        }
     }
 }

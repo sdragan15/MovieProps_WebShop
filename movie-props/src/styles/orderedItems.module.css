@@ -1,0 +1,7 @@
+.mainWrapper {
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 0rem 10%;
+}

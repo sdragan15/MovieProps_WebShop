@@ -10,6 +10,14 @@ class OrderService {
 	async getMyOrders() {
 		return await axiosInstance.get("/Order/getMyOrders");
 	}
+
+	async getAllOrders() {
+		return await axiosInstance.get("/Order/getAllOrders");
+	}
+
+	async getOrderedItemsByUser() {
+		return await axiosInstance.get("/Order/getOrderedItemsByUserEmail");
+	}
 }
 
 export default OrderService;

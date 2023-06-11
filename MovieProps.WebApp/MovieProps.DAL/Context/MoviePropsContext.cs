@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieProps.DAL.Contract.Model;
+using MovieProps.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace MovieProps.DAL.Context
             var item = modelBuilder.Entity<Item>();
             item.Property(x => x.Price).HasPrecision(12, 3);
 
+            modelBuilder.Entity<OrderedItemsTemp>().HasNoKey();
         }
 
         public DbSet<User> Users { get; set; }

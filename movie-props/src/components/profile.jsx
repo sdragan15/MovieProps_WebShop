@@ -87,6 +87,9 @@ function Profile() {
 
 	return (
 		<>
+			<div className={styles.backgroundWrapper}>
+				<div className={styles.background}></div>
+			</div>
 			<div className={styles.mainWrapper}>
 				<form method="post" onSubmit={submit} className={styles.container}>
 					<table className={styles.userTable}>

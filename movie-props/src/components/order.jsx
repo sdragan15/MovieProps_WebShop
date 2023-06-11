@@ -1,7 +1,7 @@
 import { OrderType } from "../models/orders.model";
 import "../styles/order.css";
 
-function Order({ orders }) {
+function Order({ orders, onClick }) {
 	const orderType = new OrderType();
 
 	return (
@@ -25,7 +25,7 @@ function Order({ orders }) {
 							<span>Ordered</span>
 						</th>
 						<th>
-							<span>Delivered</span>
+							<span>Deliver Time</span>
 						</th>
 						<th>
 							<span>Status</span>
@@ -35,18 +35,23 @@ function Order({ orders }) {
 				</thead>
 				<tbody className="order-tbody">
 					{orders.map((order) => (
-						<tr key={order.id}>
+						<tr
+							onClick={(e) => {
+								onClick(e, order);
+							}}
+							key={order.id}
+						>
 							<td>
 								<span>{order.id}</span>
 							</td>
 							<td>
-								<span>{order.products}</span>
+								<span>${order.products}</span>
 							</td>
 							<td>
-								<span>{order.shipping}</span>
+								<span>${order.shipping}</span>
 							</td>
 							<td>
-								<span>{order.total}</span>
+								<span>${order.total}</span>
 							</td>
 							<td>
 								<span>{order.ordered}</span>
@@ -66,9 +71,11 @@ function Order({ orders }) {
 								) : null}
 							</td>
 							<td className="order-cancel-td">
-								<div className="order-cancel-btn">
-									<button className="button">Cancel</button>
-								</div>
+								{order.orderType == orderType.ordered ? (
+									<div className="order-cancel-btn">
+										<button className="button">Cancel</button>
+									</div>
+								) : null}
 							</td>
 						</tr>
 					))}

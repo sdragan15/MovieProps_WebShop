@@ -86,6 +86,7 @@ function MainShop() {
 
 	return (
 		<>
+			<div className="shop-background"></div>
 			<div className="shop-wrapper">
 				<div className="shop-search-wrapper">
 					<input type="text" placeholder="Search" />

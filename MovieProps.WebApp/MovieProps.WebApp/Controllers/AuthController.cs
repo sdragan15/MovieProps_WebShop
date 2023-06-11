@@ -20,7 +20,6 @@ namespace MovieProps.WebApp.Controllers
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
 
-
         public AuthController(IConfiguration configuration, IUserService userService, IAuthService auth)
         {
             _configuration = configuration;

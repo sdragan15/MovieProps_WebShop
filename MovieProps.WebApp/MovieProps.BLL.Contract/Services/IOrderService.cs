@@ -1,5 +1,6 @@
 ﻿using MovieProps.BLL.Contract.DTOs.Order;
 using MovieProps.Shared.Helper;
+using MovieProps.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace MovieProps.BLL.Contract.Services
     {
         Task<ResponsePackage<string>> CreateOrder(OrderDataIn dataIn);
         Task<ResponsePackage<List<OrderDto>>> GetMyOrders();
+        Task<ResponsePackage<List<OrderDto>>> GetAllOrders();
+        Task<ResponsePackage<List<OrderedItemDto>>> GetOrderedItemsByUserEmail();
     }
 }

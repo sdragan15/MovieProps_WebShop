@@ -65,6 +65,9 @@ function Sellers() {
 
 	return (
 		<>
+			<div className={styles.backgroundWrapper}>
+				<div className={styles.background}></div>
+			</div>
 			<div className={styles.mainWrapper}>
 				<h1>Sellers</h1>
 				<div className={styles.container}>

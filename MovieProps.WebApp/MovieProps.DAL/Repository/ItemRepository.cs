@@ -61,6 +61,7 @@ namespace MovieProps.DAL.Repository
         {
             return await _context.Set<Item>()
                 .Where(x => x.IsDeleted == false && x.Quantity > 0)
+                .OrderByDescending(x => x.LastUpdateTime)
                 .ToListAsync();
         }
 

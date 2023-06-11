@@ -4,7 +4,9 @@ using MovieProps.BLL.Contract.Helpers;
 using MovieProps.BLL.Contract.Services;
 using MovieProps.DAL.Contract.Model;
 using MovieProps.DAL.Contract.UnitOfWork;
+using MovieProps.Shared.Constants;
 using MovieProps.Shared.Helper;
+using MovieProps.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +78,8 @@ namespace MovieProps.BLL.Services
                 order.Address = dataIn.Address ?? user.Address ?? "";
                 order.LastUpdateTime = DateTime.Now;
                 order.OrderType = Shared.Constants.OrderType.ORDERED;
-                order.Total = 0;
+                order.Total = ShippingCost.Price;
+                order.Delivered = DateTime.Now.AddHours(rand.Next(1, 10));
 
                 foreach(var item in order.OrderItems)
                 {
@@ -96,6 +99,31 @@ namespace MovieProps.BLL.Services
             catch(Exception e)
             {
                 return new ResponsePackage<string>(Shared.Constants.StatusCode.INTERNAL_SERVER_ERROR, e.Message);
+            }
+        }
+
+        public async Task<ResponsePackage<List<OrderDto>>> GetAllOrders()
+        {
+            try
+            {
+                var orders = await _uow.GetOrderRepository().GetAllOrders();
+                if (orders == null)
+                {
+                    return new ResponsePackage<List<OrderDto>>()
+                    {
+                        Data = null
+                    };
+                }
+
+                var ordersDto = _mapper.Map<List<OrderDto>>(orders);
+                return new ResponsePackage<List<OrderDto>>()
+                {
+                    Data = ordersDto
+                };
+            }
+            catch (Exception e)
+            {
+                return new ResponsePackage<List<OrderDto>>(Shared.Constants.StatusCode.INTERNAL_SERVER_ERROR, e.Message);
             }
         }
 
@@ -123,6 +151,28 @@ namespace MovieProps.BLL.Services
                 return new ResponsePackage<List<OrderDto>>(Shared.Constants.StatusCode.INTERNAL_SERVER_ERROR, e.Message);
             }
             
+        }
+
+        public async Task<ResponsePackage<List<OrderedItemDto>>> GetOrderedItemsByUserEmail()
+        {
+            var user = await _uow.GetUserRepository().GetByEmail(_userEmail);
+            if(user == null)
+            {
+                return new ResponsePackage<List<OrderedItemDto>>(StatusCode.INTERNAL_SERVER_ERROR, "Internal server error");
+            }
+
+            var items = await _uow.GetOrderRepository().GetAllOrderedItemsByUserId(user.Id);
+            foreach(var item in items)
+            {
+                item.Price -= ShippingCost.Price;
+            }
+
+            var resultDto = _mapper.Map<List<OrderedItemDto>>(items);
+
+            return new ResponsePackage<List<OrderedItemDto>>()
+            {
+                Data = resultDto
+            };
         }
     }
 }

@@ -212,6 +212,32 @@ namespace MovieProps.DAL.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("MovieProps.Shared.Models.OrderedItemsTemp", b =>
+                {
+                    b.Property<int?>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Delivered")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Ordered")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.ToTable("OrderedItemsTemp");
+                });
+
             modelBuilder.Entity("MovieProps.DAL.Contract.Model.Item", b =>
                 {
                     b.HasOne("MovieProps.DAL.Contract.Model.User", null)

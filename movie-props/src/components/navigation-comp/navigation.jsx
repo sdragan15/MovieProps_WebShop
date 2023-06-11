@@ -26,9 +26,7 @@ function Navigation({ user }) {
 				<img className="nav-image" src={user.image}></img>
 				<NavigationItem item={"Profile"} path={"profile"} />
 				<NavigationItem item={"Sellers"} path={"sellers"} />
-				<NavigationItem item={"My Cart"} path={"my-cart"} />
-				<NavigationItem item={"My Products"} path={"my-product"} />
-				<NavigationItem item={"My Orders"} path={"my-orders"} />
+				<NavigationItem item={"All Orders"} path={"all-orders"} />
 				<NavigationItem item={"Shop"} path={"main-shop"} />
 			</>
 		);
@@ -36,19 +34,20 @@ function Navigation({ user }) {
 		if (user.status == userStatus.Approved) {
 			approved = (
 				<>
-					<NavigationItem item={"My Products"} path={"my-product"} />
+					<NavigationItem item={"Create"} path={"my-product"} />
+					<NavigationItem item={"All Orders"} path={"ordered-items"} />
 				</>
 			);
 		} else if (user.status == userStatus.Pending) {
 			approved = (
 				<>
-					<NavigationItem item={"My Products"} path={"pending"} />
+					<NavigationItem item={"Create"} path={"pending"} />
 				</>
 			);
 		} else if (user.status == userStatus.Rejected) {
 			approved = (
 				<>
-					<NavigationItem item={"My Products"} path={"rejected"} />
+					<NavigationItem item={"Create"} path={"rejected"} />
 				</>
 			);
 		}
@@ -57,8 +56,8 @@ function Navigation({ user }) {
 			<>
 				<img className="nav-image" src={user.image}></img>
 				<NavigationItem item={"Profile"} path={"profile"} />
-				<NavigationItem item={"My Cart"} path={"my-cart"} />
 				{approved}
+				<NavigationItem item={"My Cart"} path={"my-cart"} />
 				<NavigationItem item={"My Orders"} path={"my-orders"} />
 				<NavigationItem item={"Shop"} path={"main-shop"} />
 			</>

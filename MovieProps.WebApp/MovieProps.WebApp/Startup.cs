@@ -16,6 +16,7 @@ using MovieProps.BLL.Mappers;
 using Microsoft.Extensions.FileProviders;
 using MovieProps.BLL.Contract.Helpers;
 using MovieProps.BLL.Helpers;
+using MovieProps.Shared.Models;
 
 namespace MovieProps.WebApp
 {
@@ -153,8 +154,14 @@ namespace MovieProps.WebApp
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<HttpClient, HttpClient>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            var emailConfig = Configuration
+               .GetSection("EmailConfiguration")
+               .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
         }
     }
 }

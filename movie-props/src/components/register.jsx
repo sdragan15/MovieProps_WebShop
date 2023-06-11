@@ -39,6 +39,10 @@ function Register() {
 			toast.error("Address is required");
 			return;
 		}
+		if (register.date == null) {
+			toast.error("Date of birth is required");
+			return;
+		}
 
 		const date = new Date(register.date);
 		const formData = new FormData();
@@ -87,13 +91,14 @@ function Register() {
 
 	return (
 		<>
+			<div className="main-overlay-white"></div>
 			<div className="register-container">
 				<h1 className="header">Register</h1>
 				<div className="register-form-wrapper">
 					<form method="post" onSubmit={handleSubmit}>
 						<MyInput
 							text={"E-mail"}
-							type={"text"}
+							type={"email"}
 							name={"e-mail"}
 							value={register.email}
 							onChange={(e) =>
@@ -169,7 +174,7 @@ function Register() {
 									}
 								/>
 								<MyInput
-									text={"Date"}
+									text={"Date of birth"}
 									type={"date"}
 									name={"date"}
 									value={register.date}
