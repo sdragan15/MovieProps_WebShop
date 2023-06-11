@@ -3,7 +3,7 @@
 	flex-direction: column;
 	align-items: center;
 	margin: 5rem;
-	margin-top: 8rem;
+	margin-top: 7rem;
 }
 
 .login-form-wrapper {
@@ -55,7 +55,6 @@
 	overflow: hidden;
 	width: 10rem;
 	position: absolute;
-	width: 10rem;
 	bottom: 0rem;
 	left: -10rem;
 	z-index: -1;
@@ -68,7 +67,7 @@
 	flex-direction: column;
 	align-items: center;
 	margin: 4rem;
-	margin-top: 8rem;
+	margin-top: 7rem;
 }
 
 .register-form-wrapper {
@@ -99,9 +98,11 @@
 }
 
 .register-img {
-	max-width: 15rem;
+	width: 13rem;
+	height: 13rem;
 	margin-top: 1rem;
-	max-height: 13rem;
+	object-fit: cover;
+	border: 1px solid black;
 }
 
 .register-img-input {

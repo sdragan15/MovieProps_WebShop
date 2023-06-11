@@ -20,5 +20,6 @@ namespace MovieProps.BLL.Contract.Services
         Task<ResponsePackage<string>> ApproveSeller(string email);
         Task<ResponsePackage<string>> RejectSeller(string email);
         Task<ResponsePackage<string>> Update(UserDataIn dataIn);
+        Task<ResponsePackage<string>> UpdateDeliveries();
     }
 }

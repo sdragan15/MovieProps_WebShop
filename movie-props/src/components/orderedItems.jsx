@@ -3,6 +3,7 @@ import OrderService from "../services/order.service";
 import styles from "../styles/orderedItems.module.css";
 import { useSearchParams } from "react-router-dom";
 import { OrderType } from "../models/orders.model";
+import { toast } from "react-toastify";
 
 function OrderedItems() {
 	const orderService = new OrderService();
@@ -17,17 +18,16 @@ function OrderedItems() {
 				if (response.status == 200) {
 					setItems(response.data.data);
 				} else {
-					alert("failed");
+					toast.error("Failed");
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	};
 
 	useEffect(() => {
 		getItems();
-		console.log(items);
 	}, []);
 
 	return (

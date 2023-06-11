@@ -3,6 +3,7 @@ import { UserModel } from "../models/user.model";
 import styles from "../styles/profile.module.css";
 import MyInput from "./input-comp/myInput";
 import UserService from "../services/user.service";
+import { toast } from "react-toastify";
 
 function Profile() {
 	const userService = new UserService();
@@ -26,7 +27,7 @@ function Profile() {
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	};
 
@@ -42,7 +43,6 @@ function Profile() {
 
 	useEffect(() => {
 		getUser();
-		console.log(user);
 	}, []);
 
 	useEffect(() => {
@@ -62,6 +62,27 @@ function Profile() {
 	const submit = (e) => {
 		e.preventDefault();
 
+		if (user.firstName == "") {
+			toast.error("Firstname is required");
+			return;
+		}
+		if (user.lastName == "") {
+			toast.error("Lastname is required");
+			return;
+		}
+		if (user.email == "") {
+			toast.error("Email is required");
+			return;
+		}
+		if (user.address == "") {
+			toast.error("Address is required");
+			return;
+		}
+		if (user.birthDay == "" || user.birthDay == null) {
+			toast.error("Date of birth is required");
+			return;
+		}
+
 		const formData = new FormData();
 		formData.append("firstName", user.firstName);
 		formData.append("lastName", user.lastName);
@@ -74,14 +95,14 @@ function Profile() {
 			.update(formData)
 			.then((response) => {
 				if (response.status == 200) {
-					alert("Success");
+					toast.success("Success");
 					getUser();
 				} else {
-					alert("Failed");
+					toast.error("Failed");
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	};
 

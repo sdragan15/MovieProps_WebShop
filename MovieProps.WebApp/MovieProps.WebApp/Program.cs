@@ -15,6 +15,7 @@ namespace MovieProps.WebApp
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }
 

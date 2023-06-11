@@ -31,7 +31,7 @@ namespace MovieProps.WebApp.Controllers
         [HttpGet("getAllOrders")]
         public async Task<IActionResult> GetAllOrders()
         {
-            return Ok(await _orderService.GetMyOrders());
+            return Ok(await _orderService.GetAllOrders());
         }
 
         [HttpGet("getOrderedItemsByUserEmail")]

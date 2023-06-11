@@ -44,21 +44,17 @@ function MyCart() {
 				if (response.status == 200) {
 					let newItems = response.data.data.items;
 					setBallance(response.data.data);
-					console.log(response.data.data);
 					items.forEach((item) => {
 						newItems.forEach((newItem) => {
 							if (newItem.id == item.id) {
 								newItem.count = item.count;
 								if (newItem.name != item.name) {
-									console.log(newItem, item);
 									updated = true;
 								}
 								if (newItem.description != item.description) {
-									console.log(newItem, item);
 									updated = true;
 								}
 								if (newItem.price != item.price) {
-									console.log(newItem, item);
 									updated = true;
 								}
 							}
@@ -100,6 +96,11 @@ function MyCart() {
 
 	const purchase = (e) => {
 		e.preventDefault();
+
+		if (localStorage["items"] == undefined || localStorage["items"] == "") {
+			toast.warning("You dont have any items");
+			return;
+		}
 
 		orderService
 			.createOrder(orders)

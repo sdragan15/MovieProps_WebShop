@@ -12,5 +12,6 @@ namespace MovieProps.BLL.Contract.Services
     public interface IAuthService
     {
         Task<ResponsePackage<User>> LoginWithFacebook(string token);
+        string Encrypt(string text);
     }
 }

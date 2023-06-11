@@ -5,6 +5,7 @@ import AddItemModal from "./modals-comp/addItemModal";
 import { ItemModel } from "../models/item.model";
 import ItemService from "../services/item.service";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 let itemService = ItemService;
 
@@ -22,21 +23,19 @@ function MainShop() {
 			.getAll()
 			.then((res) => {
 				if (res.status == 200) {
-					console.log(res.data.data);
 					setItems(res.data.data);
 				} else {
-					console.log(res.message);
+					toast.error("Error");
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	}, []);
 
 	const openAddItemModal = (event, item) => {
 		setBuyNo(0);
 
-		console.log(localStorage["items"]);
 		if (localStorage["items"] != "" && localStorage["items"] != undefined) {
 			let myItems = [];
 			myItems = JSON.parse(localStorage["items"]);
@@ -68,7 +67,6 @@ function MainShop() {
 		} else {
 			let myItems = [];
 			let isUpdate = false;
-			console.log(localStorage["items"]);
 			myItems = JSON.parse(localStorage["items"]);
 			myItems.forEach((element) => {
 				if (element.id == clickedItem.id) {
@@ -86,7 +84,9 @@ function MainShop() {
 
 	return (
 		<>
-			<div className="shop-background"></div>
+			<div className="shop-backgroundWrapper">
+				<div className="shop-background"></div>
+			</div>
 			<div className="shop-wrapper">
 				<div className="shop-search-wrapper">
 					<input type="text" placeholder="Search" />

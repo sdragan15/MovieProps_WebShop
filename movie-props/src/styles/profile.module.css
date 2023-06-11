@@ -2,7 +2,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 5rem;
+	margin-top: 8rem;
 }
 
 .container {
@@ -31,8 +31,10 @@ th {
 }
 
 .profilePic {
-	max-width: 20rem;
-	max-height: 15rem;
+	width: 15rem;
+	height: 15rem;
+	object-fit: cover;
+	border: 1px solid black;
 }
 
 .imageInput {

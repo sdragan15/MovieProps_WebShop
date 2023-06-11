@@ -15,7 +15,7 @@ function Dashboard() {
 				<div className="dashboard-photo-wrapper">
 					<img
 						className="dashboard-photo"
-						src={require("../images/john.jpg")}
+						src={require("../images/joker.png")}
 					/>
 				</div>
 			</div>

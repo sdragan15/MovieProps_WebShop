@@ -8,11 +8,7 @@ using MovieProps.DAL.Contract.UnitOfWork;
 using MovieProps.Shared.Constants;
 using MovieProps.Shared.Helper;
 using MovieProps.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MovieProps.BLL.Services
 {
@@ -23,11 +19,12 @@ namespace MovieProps.BLL.Services
         private readonly IMapper _mapper;
         private readonly IHttpContextProvider _httpContextProvider;
         private readonly IEmailService _emailService;
+        private readonly IAuthService _authService;
 
         private readonly string _userEmail;
 
         public UserService(IUnitOfWork unitOfWork, IImageService imageService, IMapper mapper,
-            IHttpContextProvider provider, IEmailService emailService)
+            IHttpContextProvider provider, IEmailService emailService, IAuthService authService)
         {
             _uow = unitOfWork;
             _imageService = imageService;
@@ -35,6 +32,7 @@ namespace MovieProps.BLL.Services
             _httpContextProvider = provider;
             _userEmail = _httpContextProvider.GetUserEmail();
             _emailService = emailService;
+            _authService = authService;
         }
 
         public async Task<ResponsePackage<User>> GetByEmail(string email)
@@ -70,50 +68,60 @@ namespace MovieProps.BLL.Services
 
         public async Task<ResponsePackage<string>> RegisterUser(UserDataIn dataIn)
         {
-            if (String.IsNullOrWhiteSpace(dataIn.Email))
+            try
             {
-                return new ResponsePackage<string>(StatusCode.BAD_REQUEST, "Email is required");
-            }
+                if (String.IsNullOrWhiteSpace(dataIn.Email))
+                {
+                    return new ResponsePackage<string>(StatusCode.BAD_REQUEST, "Email is required");
+                }
 
-            if (String.IsNullOrWhiteSpace(dataIn.Password))
+                if (String.IsNullOrWhiteSpace(dataIn.Password))
+                {
+                    return new ResponsePackage<string>(StatusCode.BAD_REQUEST, "Password is required");
+                }
+
+                var oldUser = await _uow.GetUserRepository().GetByEmail(dataIn.Email);
+                if (oldUser != null)
+                {
+                    return new ResponsePackage<string>(StatusCode.BAD_REQUEST, "User already registered!");
+                }
+
+                var user = _mapper.Map<User>(dataIn);
+                user.LastUpdateTime = DateTime.Now;
+                var imagePackage = await _imageService.SaveImage(dataIn.Image);
+                switch (dataIn.Role)
+                {
+                    case "Buyer":
+                        user.Role = await _uow.GetRoleRepository().GetByValue(RoleTypes.BUYER);
+                        user.Status = UserStatus.APPROVED;
+                        break;
+                    case "Seller":
+                        user.Role = await _uow.GetRoleRepository().GetByValue(RoleTypes.SELLER);
+                        user.Status = UserStatus.PENDING;
+                        break;
+                    default:
+                        user.Role = await _uow.GetRoleRepository().GetByValue(RoleTypes.BUYER);
+                        user.Status = UserStatus.APPROVED;
+                        break;
+                }
+
+                user.Password = _authService.Encrypt(user.Password);
+
+                if (imagePackage.StatusCode == StatusCode.OK)
+                {
+                    user.Image = imagePackage.Data;
+                }
+
+                await _uow.GetUserRepository().Add(user);
+                await _uow.CompleteAsync();
+
+                return new ResponsePackage<string>();
+            }
+            catch(Exception e)
             {
-                return new ResponsePackage<string>(StatusCode.BAD_REQUEST, "Password is required");
+                return new ResponsePackage<string>(StatusCode.INTERNAL_SERVER_ERROR, e.Message);
             }
-
-            var oldUser = await _uow.GetUserRepository().GetByEmail(dataIn.Email);
-            if(oldUser != null)
-            {
-                return new ResponsePackage<string>(StatusCode.BAD_REQUEST, "User already registered!");
-            }
-
-            var user = _mapper.Map<User>(dataIn);
-            user.LastUpdateTime = DateTime.Now;
-            var imagePackage = await _imageService.SaveImage(dataIn.Image);
-            switch (dataIn.Role)
-            {
-                case "Buyer":
-                    user.Role = await _uow.GetRoleRepository().GetByValue(RoleTypes.BUYER);
-                    user.Status = UserStatus.APPROVED;
-                    break;
-                case "Seller":
-                    user.Role = await _uow.GetRoleRepository().GetByValue(RoleTypes.SELLER);
-                    user.Status = UserStatus.PENDING;
-                    break;
-                default:
-                    user.Role = await _uow.GetRoleRepository().GetByValue(RoleTypes.BUYER);
-                    user.Status = UserStatus.APPROVED;
-                    break;
-            }
-
-            if(imagePackage.StatusCode == StatusCode.OK)
-            {
-                user.Image = imagePackage.Data;
-            }
-
-            await _uow.GetUserRepository().Add(user);
-            await _uow.CompleteAsync();
-
-            return new ResponsePackage<string>();
+            
         }
 
         public async Task<ResponsePackage<List<ItemDto>>> GetAllItemsForCurrentUser()
@@ -238,6 +246,11 @@ namespace MovieProps.BLL.Services
 
             await _uow.CompleteAsync();
 
+            return new ResponsePackage<string>();
+        }
+
+        public async Task<ResponsePackage<string>> UpdateDeliveries()
+        {
             return new ResponsePackage<string>();
         }
     }

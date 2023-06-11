@@ -54,7 +54,7 @@ namespace MovieProps.DAL.Repository
                         inner join Orders
 	                        on Orders.Id = OrderItems.OrderId
                         where Items.UserId = @p0
-                        and Items.IsDeleted = false
+                        and Items.IsDeleted = 0
                         and Orders.OrderType not in (0, 3)";
 
             try
@@ -71,6 +71,13 @@ namespace MovieProps.DAL.Repository
             }
             
 
+        }
+
+        public async Task<List<Order>> GetNotDeliveredOrders()
+        {
+            return await _context.Set<Order>()
+                .Where(x => x.OrderType == Shared.Constants.OrderType.ORDERED && x.IsDeleted == false)
+                .ToListAsync();
         }
     }
 }

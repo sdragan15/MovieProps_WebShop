@@ -42,12 +42,44 @@ namespace MovieProps.BLL.Helpers
         private string GetHtml(string text)
         {
             return $@"
-<div style=""position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center;"">
-    <img src=""https://cdn.vox-cdn.com/thumbor/5w9FJ8Fimki197z9orQZnJ3CyMo=/1400x1050/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/24415978/rick_and_morty_s4_image.png"" />
+<div
+    style=``
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    ``
+>
+    <img
+        src=`https://cdn.vox-cdn.com/thumbor/5w9FJ8Fimki197z9orQZnJ3CyMo=/1400x1050/filters:format(png)/cdn.vox-cdn.com/uploads/chorus_asset/file/24415978/rick_and_morty_s4_image.png`
+    />
 </div>
 <div po></div>
-<div style=""position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"">
-    <h1 style=""background-color: rgba(0, 0, 0, 0.8); border-radius: 1rem; color: rgba(255, 255, 255, 0.9); padding: 2rem;"">{text}</h1>
+<div
+    style=``
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    ``
+>
+    <h1
+        style=``
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+        ``
+    >
+        {text}
+    </h1>
 </div>
 ";
 

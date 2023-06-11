@@ -13,5 +13,6 @@ namespace MovieProps.DAL.Contract.Repository
         Task<List<Order>> GetOrdersByEmail(string email);
         Task<List<Order>> GetAllOrders();
         Task<List<OrderedItemsTemp>> GetAllOrderedItemsByUserId(int id);
+        Task<List<Order>> GetNotDeliveredOrders();
     }
 }

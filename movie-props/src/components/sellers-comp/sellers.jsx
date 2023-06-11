@@ -4,6 +4,7 @@ import { UserStatus } from "../../models/user-status.model";
 import UserService from "../../services/user.service";
 import styles from "../../styles/sellers.module.css";
 import { UserModel } from "../../models/user.model";
+import { toast } from "react-toastify";
 
 function Sellers() {
 	const status = new UserStatus();
@@ -17,13 +18,12 @@ function Sellers() {
 			.then((response) => {
 				if (response.status == 200) {
 					setUsers(response.data.data);
-					console.log(response.data.data);
 				} else {
-					alert(response.message);
+					toast.error(response.message);
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	};
 
@@ -36,14 +36,14 @@ function Sellers() {
 			.approveSeller(email)
 			.then((response) => {
 				if (response.status == 200) {
-					alert("success");
+					toast.success("success");
 					getAllSellers();
 				} else {
-					alert(response.message);
+					toast.error(response.message);
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	};
 
@@ -52,14 +52,14 @@ function Sellers() {
 			.rejectSeller(email)
 			.then((response) => {
 				if (response.status == 200) {
-					alert("success");
+					toast.success("success");
 					getAllSellers();
 				} else {
-					alert(response.message);
+					toast.error(response.message);
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	};
 

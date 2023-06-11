@@ -45,13 +45,14 @@ function AddProduct() {
 			.then((response) => {
 				if (response.status == 200) {
 					toast.success("Success");
+					setItem(new ItemModel());
 					setIsUploaded(true);
 				} else {
-					console.log(response.message);
+					toast.error("Error");
 				}
 			})
 			.catch((error) => {
-				console.log(error.message);
+				toast.error(error.message);
 			});
 	};
 
@@ -83,6 +84,7 @@ function AddProduct() {
 		itemService.updateItem(formData).then((response) => {
 			if (response.status == 200) {
 				toast.success("success");
+				setItem(new ItemModel());
 				setIsUploaded(true);
 			}
 		});
@@ -97,7 +99,7 @@ function AddProduct() {
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	}, [isUploaded]);
 
@@ -120,7 +122,6 @@ function AddProduct() {
 	};
 
 	const onDelete = (item) => {
-		console.log(item.id);
 		itemService
 			.deleteItem(item.id)
 			.then((response) => {
@@ -130,12 +131,15 @@ function AddProduct() {
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	};
 
 	return (
 		<>
+			<div className={styles.backgroundWrapper}>
+				<div className={styles.background}></div>
+			</div>
 			<div className={styles.addProductWrapper}>
 				<form method="post" className={styles.form} onSubmit={uploadData}>
 					<div className={styles.productFormContainer}>
@@ -166,7 +170,7 @@ function AddProduct() {
 									}))
 								}
 							/>
-							<span>Price (rsd):</span>
+							<span>Price:</span>
 							<MyInput
 								value={item.price}
 								name={"price"}

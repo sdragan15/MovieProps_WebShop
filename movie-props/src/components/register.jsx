@@ -62,11 +62,11 @@ function Register() {
 					toast.success("Success");
 					navigate("../login");
 				} else {
-					alert("Failed");
+					toast.error("Failed");
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				toast.error(error.message);
 			});
 	};
 
@@ -86,7 +86,6 @@ function Register() {
 			...prevState,
 			role: e.target.value,
 		}));
-		console.log(e.target.value);
 	};
 
 	return (

@@ -83,6 +83,7 @@ namespace MovieProps.WebApp
             services.AddSingleton(mapper);
 
             AddServices(services);
+            
 
         }
 
@@ -154,7 +155,10 @@ namespace MovieProps.WebApp
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<HttpClient, HttpClient>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderHandling, OrderHandling>();
+
             services.AddScoped<IEmailService, EmailService>();
+
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
@@ -162,6 +166,8 @@ namespace MovieProps.WebApp
                .GetSection("EmailConfiguration")
                .Get<EmailConfiguration>();
             services.AddSingleton(emailConfig);
+
+            services.AddHostedService<PeriodicService>();
         }
     }
 }

@@ -17,16 +17,30 @@ namespace MovieProps.BLL.Services
     public class AuthService : IAuthService
     {
         private readonly HttpClient _httpClient;
-        private readonly IUserService _userService;
         private readonly IUnitOfWork _uow;
         private readonly IHttpContextAccessor _httpContext;
 
-        public AuthService(HttpClient httpClient, IUserService userService, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
+        public AuthService(HttpClient httpClient, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
-            _userService = userService;
             _uow = unitOfWork;
             _httpContext = httpContextAccessor;
+        }
+
+
+        public string Encrypt(string text)
+        {
+            using (var sha = new System.Security.Cryptography.SHA256Managed())
+            {
+                byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(text);
+                byte[] hashBytes = sha.ComputeHash(textBytes);
+
+                string hash = BitConverter
+                    .ToString(hashBytes)
+                    .Replace("-", String.Empty);
+
+                return hash;
+            }
         }
 
         public async Task<ResponsePackage<User>> LoginWithFacebook(string token)
