@@ -8,12 +8,13 @@ import { BalanceModel } from "../../models/balance.model";
 import MyInput from "../input-comp/myInput";
 import { OrdersModel } from "../../models/orders.model";
 import OrderService from "../../services/order.service";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 
 function MyCart() {
 	const navigate = useNavigate();
 	const itemService = new ItemService();
 	const orderService = new OrderService();
+	let validItems = true;
 
 	const [items, setItems] = useState([]);
 	const [ballance, setBallance] = useState(new BalanceModel());
@@ -33,7 +34,7 @@ function MyCart() {
 		return ids;
 	};
 
-	const checkItems = (items) => {
+	const checkItems = (items, isPurchase) => {
 		let updated = false;
 		let data = {
 			items: getItemIds(items),
@@ -62,9 +63,12 @@ function MyCart() {
 
 						if (updated) {
 							toast.warning("Items are changed");
+						} else if (isPurchase) {
+							purchase();
 						}
 					});
 					setItems(response.data.data.items);
+					localStorage["items"] = JSON.stringify(response.data.data.items);
 				} else {
 					toast.error(response.data.message);
 				}
@@ -78,7 +82,7 @@ function MyCart() {
 		if (localStorage["items"] != "" && localStorage["items"] != undefined) {
 			let temp = localStorage["items"];
 			setItems(JSON.parse(temp));
-			checkItems(JSON.parse(temp));
+			checkItems(JSON.parse(temp), false);
 		}
 		let user = JSON.parse(localStorage["user"]);
 		setOrders((prevState) => ({
@@ -94,9 +98,7 @@ function MyCart() {
 		}));
 	}, [items]);
 
-	const purchase = (e) => {
-		e.preventDefault();
-
+	const purchase = () => {
 		if (localStorage["items"] == undefined || localStorage["items"] == "") {
 			toast.warning("You dont have any items");
 			return;
@@ -116,6 +118,16 @@ function MyCart() {
 			.catch((error) => {
 				toast.error(error.message);
 			});
+	};
+
+	const handlePurchase = (e) => {
+		e.preventDefault();
+
+		if (localStorage["items"] != "" && localStorage["items"] != undefined) {
+			let temp = localStorage["items"];
+			setItems(JSON.parse(temp));
+			checkItems(JSON.parse(temp), true);
+		}
 	};
 
 	return (
@@ -167,7 +179,10 @@ function MyCart() {
 							<tr>
 								<td colSpan={2}>
 									<div className="cart-purchase">
-										<button className="button cart-buy-btn" onClick={purchase}>
+										<button
+											className="button cart-buy-btn"
+											onClick={handlePurchase}
+										>
 											Purchase
 										</button>
 									</div>
