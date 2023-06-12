@@ -33,6 +33,34 @@ namespace MovieProps.BLL.Services
             _mapper = mapper;
         }
 
+        public async Task<ResponsePackage<string>> CancelOrder(int id)
+        {
+            try
+            {
+                var order = await _uow.GetOrderRepository().GetOrderById(id);
+                if (order == null)
+                {
+                    return new ResponsePackage<string>(StatusCode.NOT_FOUND, "Not found");
+                }
+
+                foreach(var item in order.OrderItems)
+                {
+                    item.Item.Quantity += item.Count ?? 0;
+                }
+
+                order.OrderType = OrderType.CANCELED;
+                order.LastUpdateTime = DateTime.Now;
+
+                await _uow.CompleteAsync();
+                return new ResponsePackage<string>();
+            }
+            catch(Exception e)
+            {
+                return new ResponsePackage<string>(StatusCode.INTERNAL_SERVER_ERROR, e.Message);
+            }
+            
+        }
+
         public async Task<ResponsePackage<string>> CreateOrder(OrderDataIn dataIn)
         {
             var order = new Order();
@@ -155,24 +183,34 @@ namespace MovieProps.BLL.Services
 
         public async Task<ResponsePackage<List<OrderedItemDto>>> GetOrderedItemsByUserEmail()
         {
-            var user = await _uow.GetUserRepository().GetByEmail(_userEmail);
-            if(user == null)
+            try
             {
-                return new ResponsePackage<List<OrderedItemDto>>(StatusCode.INTERNAL_SERVER_ERROR, "Internal server error");
+                var user = await _uow.GetUserRepository().GetByEmail(_userEmail);
+                if (user == null)
+                {
+                    return new ResponsePackage<List<OrderedItemDto>>(StatusCode.INTERNAL_SERVER_ERROR, "Internal server error");
+                }
+
+                var items = await _uow.GetOrderRepository().GetAllOrderedItemsByUserId(user.Id);
+                foreach (var item in items)
+                {
+                    var tempItem = await _uow.GetItemRepository().GetById(item.Id);
+                    item.Price = item.Count * tempItem.Price;
+                }
+
+                var resultDto = _mapper.Map<List<OrderedItemDto>>(items);
+
+
+                return new ResponsePackage<List<OrderedItemDto>>()
+                {
+                    Data = resultDto
+                };
             }
-
-            var items = await _uow.GetOrderRepository().GetAllOrderedItemsByUserId(user.Id);
-            foreach(var item in items)
+            catch(Exception e)
             {
-                item.Price -= ShippingCost.Price;
+                return new ResponsePackage<List<OrderedItemDto>>(StatusCode.INTERNAL_SERVER_ERROR, e.Message);
             }
-
-            var resultDto = _mapper.Map<List<OrderedItemDto>>(items);
-
-            return new ResponsePackage<List<OrderedItemDto>>()
-            {
-                Data = resultDto
-            };
+            
         }
     }
 }

@@ -18,6 +18,10 @@ class OrderService {
 	async getOrderedItemsByUser() {
 		return await axiosInstance.get("/Order/getOrderedItemsByUserEmail");
 	}
+
+	async cancelOrder(id) {
+		return await axiosInstance.post(`/Order/CancelOrder/${id}`);
+	}
 }
 
 export default OrderService;

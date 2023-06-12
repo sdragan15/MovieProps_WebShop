@@ -92,16 +92,7 @@ function MainShop() {
 					<input type="text" placeholder="Search" />
 				</div>
 				<div className="shop-main-wrapper">
-					<div className="shop-sidebar">
-						<div className="shop-sidebar-item">
-							<span>Sort by</span>
-							<span>^</span>
-						</div>
-						<div className="shop-sidebar-item">
-							<span>Sort by</span>
-							<span>^</span>
-						</div>
-					</div>
+					<div className="shop-sidebar"></div>
 					<div className="shop-items-wrapper">
 						{items.map((item) => (
 							<Item

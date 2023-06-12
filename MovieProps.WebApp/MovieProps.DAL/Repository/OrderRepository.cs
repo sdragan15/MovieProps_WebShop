@@ -79,5 +79,13 @@ namespace MovieProps.DAL.Repository
                 .Where(x => x.OrderType == Shared.Constants.OrderType.ORDERED && x.IsDeleted == false)
                 .ToListAsync();
         }
+
+        public async Task<Order> GetOrderById(int id)
+        {
+            return await _context.Set<Order>()
+                .Include(x => x.OrderItems)
+                .ThenInclude(x => x.Item)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace MovieProps.BLL.Contract.Services
         Task<ResponsePackage<List<OrderDto>>> GetMyOrders();
         Task<ResponsePackage<List<OrderDto>>> GetAllOrders();
         Task<ResponsePackage<List<OrderedItemDto>>> GetOrderedItemsByUserEmail();
+        Task<ResponsePackage<string>> CancelOrder(int id);
     }
 }

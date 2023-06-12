@@ -50,8 +50,8 @@
 	height: 5rem;
 	width: 5rem;
 	flex: 0 0 auto;
-	object-fit: contain;
-	background-size: cover;
+	object-fit: cover;
+	border: 1px solid black;
 }
 
 .cart-name {

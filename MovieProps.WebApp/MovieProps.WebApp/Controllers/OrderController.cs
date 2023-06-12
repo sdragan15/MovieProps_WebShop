@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieProps.BLL.Contract.DTOs.Order;
 using MovieProps.BLL.Contract.Services;
@@ -7,6 +8,7 @@ namespace MovieProps.WebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -38,6 +40,12 @@ namespace MovieProps.WebApp.Controllers
         public async Task<IActionResult> GetOrderedItemsByUserEmail()
         {
             return Ok(await _orderService.GetOrderedItemsByUserEmail());
+        }
+
+        [HttpPost("CancelOrder/{id}")]
+        public async Task<IActionResult> CancelOrder(int id)
+        {
+            return Ok(await _orderService.CancelOrder(id));
         }
     }
 }

@@ -17,7 +17,6 @@ function AllOrders() {
 			.getAllOrders()
 			.then((response) => {
 				if (response.status == 200) {
-					console.log(response.data.data);
 					setOrders(response.data.data);
 				} else {
 					toast.error(response.data.message);

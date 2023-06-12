@@ -124,7 +124,12 @@ function MyCart() {
 			<div className="cart-wrapper">
 				<div className="cart-item-container">
 					{items.map((item) => (
-						<CartItem key={item.id} item={item} isBuyNo={true} />
+						<CartItem
+							key={item.id}
+							item={item}
+							isOnlyShow={true}
+							count={item.count}
+						/>
 					))}
 				</div>
 				<div className="cart-total">

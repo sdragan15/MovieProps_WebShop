@@ -17,11 +17,14 @@ import Toastr from "./helpers/toastr";
 import MyOrders from "./components/myOrders";
 import AllOrders from "./components/allOrders";
 import OrderedItems from "./components/orderedItems";
+import { RoleModel } from "./models/role.model";
 
 function App() {
 	const userService = new UserService();
 	const navigate = useNavigate();
 	const [user, setUser] = useState(null);
+	let routes = <></>;
+	const role = new RoleModel();
 
 	useEffect(() => {
 		if (
@@ -57,6 +60,61 @@ function App() {
 		navigate("/");
 	};
 
+	if (user == null) {
+		routes = (
+			<>
+				<Route path="" element={<Dashboard />} />
+				<Route path="login" element={<Login onLogIn={onLogIn} />} />
+				<Route path="register" element={<Register />} />
+				<Route path="main-shop" element={<MainShop />} />
+			</>
+		);
+	} else if (user.role == role.admin) {
+		routes = (
+			<>
+				<Route path="" element={<Dashboard />} />
+				<Route path="main-shop" element={<MainShop />} />
+				<Route path="logout" element={<LogOut onLogOut={onLogOut} />} />
+				<Route path="sellers" element={<Sellers />} />
+				<Route path="profile" element={<Profile />} />
+				<Route path="all-orders" element={<AllOrders />} />
+			</>
+		);
+	} else if (user.role == role.buyer) {
+		routes = (
+			<>
+				<Route path="" element={<Dashboard />} />
+				<Route path="main-shop" element={<MainShop />} />
+				<Route path="my-cart" element={<MyCart />} />
+				<Route path="logout" element={<LogOut onLogOut={onLogOut} />} />
+				<Route path="profile" element={<Profile />} />
+				<Route path="my-orders" element={<MyOrders />} />
+				<Route path="ordered-items" element={<OrderedItems />} />
+			</>
+		);
+	} else if (user.role == role.seller) {
+		routes = (
+			<>
+				<Route path="" element={<Dashboard />} />
+				<Route path="main-shop" element={<MainShop />} />
+				<Route path="my-cart" element={<MyCart />} />
+				<Route path="my-product" element={<AddProduct />} />
+				<Route path="logout" element={<LogOut onLogOut={onLogOut} />} />
+				<Route path="profile" element={<Profile />} />
+				<Route path="my-orders" element={<MyOrders />} />
+				<Route path="ordered-items" element={<OrderedItems />} />
+				<Route
+					path="pending"
+					element={<NotApproved text={"Waiting for approval from admin..."} />}
+				/>
+				<Route
+					path="rejected"
+					element={<NotApproved text={"You are not approved from admin!"} />}
+				/>
+			</>
+		);
+	}
+
 	return (
 		<>
 			<div className="main-container">
@@ -64,35 +122,18 @@ function App() {
 					<Toastr />
 					<Navigation user={user} />
 					<Routes>
-						<Route path="" element={<Dashboard />} />
-						<Route path="login" element={<Login onLogIn={onLogIn} />} />
-						<Route path="register" element={<Register />} />
-						<Route path="main-shop" element={<MainShop />} />
-						<Route path="my-cart" element={<MyCart />} />
-						<Route path="my-product" element={<AddProduct />} />
-						<Route path="logout" element={<LogOut onLogOut={onLogOut} />} />
-						<Route path="sellers" element={<Sellers />} />
-						<Route path="profile" element={<Profile />} />
-						<Route path="my-orders" element={<MyOrders />} />
-						<Route path="all-orders" element={<AllOrders />} />
-						<Route path="ordered-items" element={<OrderedItems />} />
-						<Route
-							path="pending"
-							element={
-								<NotApproved text={"Waiting for approval from admin..."} />
-							}
-						/>
-						<Route
-							path="rejected"
-							element={
-								<NotApproved text={"You are not approved from admin!"} />
-							}
-						/>
+						{routes}
+						<Route path="*" element={<NoRoute />} />
 					</Routes>
 				</div>
 			</div>
 		</>
 	);
+}
+
+function NoRoute() {
+	window.location.href = "https://localhost:3000";
+	return;
 }
 
 export default App;

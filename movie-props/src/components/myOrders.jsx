@@ -38,6 +38,22 @@ function MyOrders() {
 		setShowModal(true);
 	};
 
+	const cancel = (id) => {
+		orderService
+			.cancelOrder(id)
+			.then((response) => {
+				if (response.status == 200) {
+					toast.success("Success");
+					getOrders();
+				} else {
+					toast.error(response.data.message);
+				}
+			})
+			.catch((error) => {
+				toast.error(error.message);
+			});
+	};
+
 	return (
 		<>
 			<div className={styles.backgroundWrapper}>
@@ -46,7 +62,12 @@ function MyOrders() {
 
 			<div className={styles.mainWrapper}>
 				<div className={styles.container}>
-					<Order orders={orders} onClick={orderClick} />
+					<Order
+						orders={orders}
+						onClick={orderClick}
+						cancel={cancel}
+						showCancel={true}
+					/>
 				</div>
 			</div>
 			{showModal && (

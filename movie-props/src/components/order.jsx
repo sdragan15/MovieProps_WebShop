@@ -1,8 +1,14 @@
 import { OrderType } from "../models/orders.model";
 import "../styles/order.css";
 
-function Order({ orders, onClick }) {
+function Order({ orders, onClick, showCancel, cancel }) {
 	const orderType = new OrderType();
+
+	const handleCancel = (e, order) => {
+		e.preventDefault();
+		e.stopPropagation();
+		cancel(order.id);
+	};
 
 	return (
 		<>
@@ -57,11 +63,15 @@ function Order({ orders, onClick }) {
 								<span>{order.ordered}</span>
 							</td>
 							<td>
-								<span>{order.delivered}</span>
+								{order.orderType == orderType.canceled ? (
+									<span>N/A</span>
+								) : (
+									<span>{order.delivered}</span>
+								)}
 							</td>
 							<td>
 								{order.orderType == orderType.canceled ? (
-									<span className="order-canceled">Cancled</span>
+									<span className="order-canceled">Canceled</span>
 								) : null}
 								{order.orderType == orderType.delivered ? (
 									<span className="order-delivered">Delivered</span>
@@ -71,9 +81,14 @@ function Order({ orders, onClick }) {
 								) : null}
 							</td>
 							<td className="order-cancel-td">
-								{order.orderType == orderType.ordered ? (
+								{order.orderType == orderType.ordered && showCancel ? (
 									<div className="order-cancel-btn">
-										<button className="button">Cancel</button>
+										<button
+											className="button order-cancel-btn-main"
+											onClick={(event) => handleCancel(event, order)}
+										>
+											Cancel
+										</button>
 									</div>
 								) : null}
 							</td>

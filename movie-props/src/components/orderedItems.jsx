@@ -62,7 +62,7 @@ function OrderedItems() {
 					</thead>
 					<tbody className="order-tbody">
 						{items.map((item) => (
-							<tr key={item.id}>
+							<tr key={item.id + item.ordered}>
 								<td>
 									<span>{item.id}</span>
 								</td>

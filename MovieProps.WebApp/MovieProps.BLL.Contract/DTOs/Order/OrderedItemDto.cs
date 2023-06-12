@@ -9,6 +9,7 @@ namespace MovieProps.BLL.Contract.DTOs.Order
 {
     public class OrderedItemDto
     {
+        public string? Buyer { get; set; }
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Ordered { get; set; }
